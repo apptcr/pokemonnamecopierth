@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายชื่อโปเกมอนสำหรับใช้คัดลอก by Namjit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .status-dot {
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset, 0 0 6px currentColor;
+        }
+        #pokemonContainer::-webkit-scrollbar { width: 8px; }
+        #pokemonContainer::-webkit-scrollbar-track { background: transparent; }
+        #pokemonContainer::-webkit-scrollbar-thumb { background: #fca5a5; border-radius: 8px; }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+            outline: 3px solid #ef4444;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-rose-50 text-slate-800 min-h-screen">
+
+    <div class="max-w-5xl mx-auto px-4 py-6 md:py-10">
+
+        <div class="rounded-3xl bg-white shadow-xl ring-1 ring-rose-100 overflow-hidden">
+            <header class="bg-gradient-to-r from-red-600 to-red-500 px-5 md:px-8 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <span class="status-dot inline-block h-4 w-4 rounded-full bg-sky-300 text-sky-300"></span>
+                    <span class="status-dot inline-block h-2.5 w-2.5 rounded-full bg-amber-300 text-amber-300"></span>
+                    <span class="status-dot inline-block h-2.5 w-2.5 rounded-full bg-emerald-300 text-emerald-300"></span>
+                    <h1 class="text-white font-bold text-lg md:text-2xl ml-2 flex items-center gap-2">รายชื่อโปเกมอนสำหรับใช้คัดลอก</h1>
+                </div>
+                <span class="font-pixel text-[10px] md:text-xs text-white/80 hidden sm:inline">DEX</span>
+            </header>
+
+            <div class="p-4 md:p-8">
+
+                <section class="bg-rose-50/60 rounded-2xl border border-rose-100 p-5 md:p-6 mb-6">
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <h2 class="text-base md:text-lg font-semibold text-slate-700 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 8.293A1 1 0 013 7.586V4z" /></svg>
+                            ตัวกรองข้อมูล (Filters)
+                        </h2>
+                        <button id="resetBtn" type="button" class="text-xs md:text-sm font-medium text-red-600 hover:text-red-700 hover:underline transition px-2 py-1 rounded-md">
+                            ล้างตัวกรองทั้งหมด
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="genFilter" class="block text-sm font-medium text-slate-600 mb-1">เลือก Generation</label>
+                            <select id="genFilter" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
+                                <option value="all">ทั้งหมด (Gen 1 - 9)</option>
+                                <option value="1">Gen 1 (Kanto)</option>
+                                <option value="2">Gen 2 (Johto)</option>
+                                <option value="3">Gen 3 (Hoenn)</option>
+                                <option value="4">Gen 4 (Sinnoh)</option>
+                                <option value="5">Gen 5 (Unova)</option>
+                                <option value="6">Gen 6 (Kalos)</option>
+                                <option value="7">Gen 7 (Alola)</option>
+                                <option value="8">Gen 8 (Galar)</option>
+                                <option value="9">Gen 9 (Paldea)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="searchInput" class="block text-sm font-medium text-slate-600 mb-1">ค้นหาชื่อ</label>
+                            <input type="text" id="searchInput" placeholder="พิมพ์ชื่อโปเกมอน..."
+                                class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
+                        </div>
+
+                        <div>
+                            <span class="block text-sm font-medium text-slate-600 mb-1">ช่วง ID (เลขเริ่มต้น - สิ้นสุด)</span>
+                            <div class="flex items-center gap-2">
+                                <label class="sr-only" for="idStart">ID เริ่มต้น</label>
+                                <input type="number" id="idStart" placeholder="1" min="1" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition text-center">
+                                <span class="text-slate-400">ถึง</span>
+                                <label class="sr-only" for="idEnd">ID สิ้นสุด</label>
+                                <input type="number" id="idEnd" placeholder="1025" min="1" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition text-center">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="typeFilter" class="block text-sm font-medium text-slate-600 mb-1">ประเภทโปเกมอน</label>
+                            <select id="typeFilter" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
+                                <option value="all">ทั้งหมด</option>
+                                <option value="legendary">เฉพาะระดับตำนาน (Legendary / Mythical)</option>
+                                <option value="normal">เฉพาะโปเกมอนทั่วไป</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                    <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 flex flex-col max-h-[520px]">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-semibold text-slate-700 flex items-center gap-2">
+                                รายชื่อที่ตรงตามเงื่อนไข
+                                <span id="matchCount" class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-0.5 rounded-full">0</span>
+                            </h3>
+                            <span class="text-xs text-slate-400 hidden sm:inline">คลิกที่รายชื่อเพื่อเลือก/ยกเลิก</span>
+                        </div>
+
+                        <div id="pokemonContainer" class="overflow-y-auto space-y-2 flex-1 pr-2 border border-rose-100 p-2 rounded-lg bg-rose-50/40"></div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 flex flex-col justify-between max-h-[520px]">
+                        <div>
+                            <h3 class="font-semibold text-slate-700 mb-3">กล่องเตรียมคัดลอก</h3>
+                            <p class="text-xs text-slate-400 mb-4">ชื่อทั้งหมดจะถูกจัดรูปแบบในกล่องนี้อัตโนมัติ คุณสามารถเลือกคั่นด้วยเครื่องหมายจุลภาค (,) หรือเว้นบรรทัดได้</p>
+
+                            <div class="mb-4">
+                                <label class="block text-xs font-medium text-slate-500 mb-1">รูปแบบการคั่นชื่อ</label>
+                                <div class="flex flex-wrap gap-x-4 gap-y-2">
+                                    <label class="inline-flex items-center text-sm text-slate-600">
+                                        <input type="radio" name="separator" value="newline" checked class="text-red-600 focus:ring-red-400">
+                                        <span class="ml-2">ขึ้นบรรทัดใหม่</span>
+                                    </label>
+                                    <label class="inline-flex items-center text-sm text-slate-600">
+                                        <input type="radio" name="separator" value="comma" class="text-red-600 focus:ring-red-400">
+                                        <span class="ml-2">คั่นด้วยจุลภาค (, )</span>
+                                    </label>
+                                    <label class="inline-flex items-center text-sm text-slate-600">
+                                        <input type="radio" name="separator" value="pipe" class="text-red-600 focus:ring-red-400">
+                                        <span class="ml-2">คั่นด้วย Pipe ( | )</span>
+                                    </label>
+                                    <label class="inline-flex items-center text-sm text-slate-600">
+                                        <input type="radio" name="separator" value="tab" class="text-red-600 focus:ring-red-400">
+                                        <span class="ml-2">คั่นด้วย Tab</span>
+                                    </label>
+                                    <label class="inline-flex items-center text-sm text-slate-600">
+                                        <input type="radio" name="separator" value="quotes" class="text-red-600 focus:ring-red-400">
+                                        <span class="ml-2">ใส่ Quotes ( "ชื่อ" )</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <textarea id="copyTextArea" readonly class="w-full h-48 bg-rose-50/40 border border-rose-100 rounded-lg p-3 text-sm text-slate-700 focus:outline-none resize-none" placeholder="ไม่มีรายชื่อที่จะคัดลอก..."></textarea>
+                        </div>
+
+                        <div class="mt-4">
+                            <button id="copyBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-2 rounded-xl shadow-sm transition flex items-center justify-center gap-2 active:scale-[0.98] text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
+                                <span id="btnText">คัดลอกรายชื่อทั้งหมด</span>
+                            </button>
+                            <p id="toastMsg" class="text-center text-emerald-600 text-sm font-medium mt-2 hidden animate-pulse" role="status">✓ คัดลอกลง คลิปบอร์ด แล้ว!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <p class="text-center text-xs text-slate-400 mt-4">ข้อมูลโปเกมอนในตัวอย่างนี้เป็นข้อมูลจำลอง — เพิ่ม/แก้ไขรายชื่อได้ใน <code class="bg-rose-100 text-rose-600 px-1 rounded">pokemonDatabase</code></p>-->
+    </div>
+
+    <script>
+        const pokemonDatabase = [
+            // Gen 1
+			{ id: 1, name: "ฟุชิกิดาเนะ", gen: 1, isLegendary: false },
+			{ id: 2, name: "ฟุชิกิโซ", gen: 1, isLegendary: false },
+			{ id: 3, name: "ฟุชิกิบานะ", gen: 1, isLegendary: false },
+			{ id: 4, name: "ฮิโตคาเงะ", gen: 1, isLegendary: false },
+			{ id: 5, name: "ลิซาร์โดะ", gen: 1, isLegendary: false },
+			{ id: 6, name: "ลิซาร์ดอน", gen: 1, isLegendary: false },
+			{ id: 7, name: "เซนิกาเมะ", gen: 1, isLegendary: false },
+			{ id: 8, name: "คาเมล", gen: 1, isLegendary: false },
+			{ id: 9, name: "คาเม็กซ์", gen: 1, isLegendary: false },
+			{ id: 10, name: "คาเตอร์ปี", gen: 1, isLegendary: false },
+			{ id: 11, name: "ทรานเซล", gen: 1, isLegendary: false },
+			{ id: 12, name: "บัตเตอร์ฟรี", gen: 1, isLegendary: false },
+			{ id: 13, name: "บีเดิล", gen: 1, isLegendary: false },
+			{ id: 14, name: "โคคูน", gen: 1, isLegendary: false },
+			{ id: 15, name: "สเปียร์", gen: 1, isLegendary: false },
+			{ id: 16, name: "ป็อปโปะ", gen: 1, isLegendary: false },
+			{ id: 17, name: "พีเจียน", gen: 1, isLegendary: false },
+			{ id: 18, name: "พีเจียต", gen: 1, isLegendary: false },
+			{ id: 19, name: "โครัตตา", gen: 1, isLegendary: false },
+			{ id: 20, name: "รัตตา", gen: 1, isLegendary: false },
+			{ id: 21, name: "โอนิสึซึเมะ", gen: 1, isLegendary: false },
+			{ id: 22, name: "โอนิดริล", gen: 1, isLegendary: false },
+			{ id: 23, name: "อาร์โบ", gen: 1, isLegendary: false },
+			{ id: 24, name: "อาร์บ็อก", gen: 1, isLegendary: false },
+			{ id: 25, name: "พิคาชู", gen: 1, isLegendary: false },
+			{ id: 26, name: "ไรชู", gen: 1, isLegendary: false },
+			{ id: 27, name: "แซนด์", gen: 1, isLegendary: false },
+			{ id: 28, name: "แซนด์แพน", gen: 1, isLegendary: false },
+			{ id: 29, name: "นิโดรัน♀", gen: 1, isLegendary: false },
+			{ id: 30, name: "นิโดรินา", gen: 1, isLegendary: false },
+			{ id: 31, name: "นิโดควีน", gen: 1, isLegendary: false },
+			{ id: 32, name: "นิโดรัน♂", gen: 1, isLegendary: false },
+			{ id: 33, name: "นิโดริโน", gen: 1, isLegendary: false },
+			{ id: 34, name: "นิโดคิง", gen: 1, isLegendary: false },
+			{ id: 35, name: "ปิปปี", gen: 1, isLegendary: false },
+			{ id: 36, name: "ปิคซี", gen: 1, isLegendary: false },
+			{ id: 37, name: "โรคอน", gen: 1, isLegendary: false },
+			{ id: 38, name: "คิวคอน", gen: 1, isLegendary: false },
+			{ id: 39, name: "พูริน", gen: 1, isLegendary: false },
+			{ id: 40, name: "พูคูริน", gen: 1, isLegendary: false },
+			{ id: 41, name: "ซูแบท", gen: 1, isLegendary: false },
+			{ id: 42, name: "โกลแบท", gen: 1, isLegendary: false },
+			{ id: 43, name: "นาโซโนะคุสะ", gen: 1, isLegendary: false },
+			{ id: 44, name: "คุไซฮานะ", gen: 1, isLegendary: false },
+			{ id: 45, name: "รัฟเฟรเซีย", gen: 1, isLegendary: false },
+			{ id: 46, name: "พารัส", gen: 1, isLegendary: false },
+			{ id: 47, name: "พาราเซ็คท์", gen: 1, isLegendary: false },
+			{ id: 48, name: "คองปัง", gen: 1, isLegendary: false },
+			{ id: 49, name: "มอร์ฟอน", gen: 1, isLegendary: false },
+			{ id: 50, name: "ดิกดา", gen: 1, isLegendary: false },
+			{ id: 51, name: "ดักทริโอ", gen: 1, isLegendary: false },
+			{ id: 52, name: "เนียส", gen: 1, isLegendary: false },
+			{ id: 53, name: "เปอร์เซียน", gen: 1, isLegendary: false },
+			{ id: 54, name: "โคดัก", gen: 1, isLegendary: false },
+			{ id: 55, name: "โกลดัก", gen: 1, isLegendary: false },
+			{ id: 56, name: "แมนคี", gen: 1, isLegendary: false },
+			{ id: 57, name: "โอโคริซารุ", gen: 1, isLegendary: false },
+			{ id: 58, name: "การ์ดี", gen: 1, isLegendary: false },
+			{ id: 59, name: "วินดี", gen: 1, isLegendary: false },
+			{ id: 60, name: "เนียวโรโมะ", gen: 1, isLegendary: false },
+			{ id: 61, name: "เนียวโรโซ", gen: 1, isLegendary: false },
+			{ id: 62, name: "เนียวโรบอน", gen: 1, isLegendary: false },
+			{ id: 63, name: "เคซี", gen: 1, isLegendary: false },
+			{ id: 64, name: "ยุนเกเรอร์", gen: 1, isLegendary: false },
+			{ id: 65, name: "ฟูดิน", gen: 1, isLegendary: false },
+			{ id: 66, name: "วันริกี", gen: 1, isLegendary: false },
+			{ id: 67, name: "โกริกี", gen: 1, isLegendary: false },
+			{ id: 68, name: "ไคริกี", gen: 1, isLegendary: false },
+			{ id: 69, name: "มาดาซึโบมิ", gen: 1, isLegendary: false },
+			{ id: 70, name: "อุซึดง", gen: 1, isLegendary: false },
+			{ id: 71, name: "อุซึบ็อท", gen: 1, isLegendary: false },
+			{ id: 72, name: "เมโนคุราเกะ", gen: 1, isLegendary: false },
+			{ id: 73, name: "โดคุคุราเกะ", gen: 1, isLegendary: false },
+			{ id: 74, name: "อิชิซึบูเตะ", gen: 1, isLegendary: false },
+			{ id: 75, name: "โกโลน", gen: 1, isLegendary: false },
+			{ id: 76, name: "โกโลเนีย", gen: 1, isLegendary: false },
+			{ id: 77, name: "โพนีตะ", gen: 1, isLegendary: false },
+			{ id: 78, name: "แกลล็อป", gen: 1, isLegendary: false },
+			{ id: 79, name: "ยาดง", gen: 1, isLegendary: false },
+			{ id: 80, name: "ยาโดรัน", gen: 1, isLegendary: false },
+			{ id: 81, name: "คอยล์", gen: 1, isLegendary: false },
+			{ id: 82, name: "แรคอยล์", gen: 1, isLegendary: false },
+			{ id: 83, name: "คาโมเนกิ", gen: 1, isLegendary: false },
+			{ id: 84, name: "โดโด", gen: 1, isLegendary: false },
+			{ id: 85, name: "โดโดริโอ", gen: 1, isLegendary: false },
+			{ id: 86, name: "เพาเวา", gen: 1, isLegendary: false },
+			{ id: 87, name: "จูกอน", gen: 1, isLegendary: false },
+			{ id: 88, name: "เบโตเบตา", gen: 1, isLegendary: false },
+			{ id: 89, name: "เบโตเบตัน", gen: 1, isLegendary: false },
+			{ id: 90, name: "เชลเดอร์", gen: 1, isLegendary: false },
+			{ id: 91, name: "พาร์เชน", gen: 1, isLegendary: false },
+			{ id: 92, name: "โกส", gen: 1, isLegendary: false },
+			{ id: 93, name: "โกสท์", gen: 1, isLegendary: false },
+			{ id: 94, name: "เก็งกา", gen: 1, isLegendary: false },
+			{ id: 95, name: "อิวาร์ค", gen: 1, isLegendary: false },
+			{ id: 96, name: "สลีป", gen: 1, isLegendary: false },
+			{ id: 97, name: "สลีปเปอร์", gen: 1, isLegendary: false },
+			{ id: 98, name: "แครบ", gen: 1, isLegendary: false },
+			{ id: 99, name: "คิงเกลอร์", gen: 1, isLegendary: false },
+			{ id: 100, name: "บิริริดามา", gen: 1, isLegendary: false },
+			{ id: 101, name: "มารุมายน์", gen: 1, isLegendary: false },
+			{ id: 102, name: "ทามะทามะ", gen: 1, isLegendary: false },
+			{ id: 103, name: "นัชชี", gen: 1, isLegendary: false },
+			{ id: 104, name: "คาระคาระ", gen: 1, isLegendary: false },
+			{ id: 105, name: "การะการะ", gen: 1, isLegendary: false },
+			{ id: 106, name: "ซาวามูลาร์", gen: 1, isLegendary: false },
+			{ id: 107, name: "เอบิวาลาร์", gen: 1, isLegendary: false },
+			{ id: 108, name: "เบโรรินกา", gen: 1, isLegendary: false },
+			{ id: 109, name: "โดกาซ", gen: 1, isLegendary: false },
+			{ id: 110, name: "มาตาโดกัซ", gen: 1, isLegendary: false },
+			{ id: 111, name: "ไซฮอร์น", gen: 1, isLegendary: false },
+			{ id: 112, name: "ไซดอน", gen: 1, isLegendary: false },
+			{ id: 113, name: "ลัคกี", gen: 1, isLegendary: false },
+			{ id: 114, name: "มอนจารา", gen: 1, isLegendary: false },
+			{ id: 115, name: "การูรา", gen: 1, isLegendary: false },
+			{ id: 116, name: "ทัททู", gen: 1, isLegendary: false },
+			{ id: 117, name: "ซีดรา", gen: 1, isLegendary: false },
+			{ id: 118, name: "โทซาคินโตะ", gen: 1, isLegendary: false },
+			{ id: 119, name: "อซึมาโอ", gen: 1, isLegendary: false },
+			{ id: 120, name: "ฮิโตเดมัน", gen: 1, isLegendary: false },
+			{ id: 121, name: "สตาร์มี", gen: 1, isLegendary: false },
+			{ id: 122, name: "บาร์เรียด", gen: 1, isLegendary: false },
+			{ id: 123, name: "สไตรค์", gen: 1, isLegendary: false },
+			{ id: 124, name: "รูจูลา", gen: 1, isLegendary: false },
+			{ id: 125, name: "เอเลบู", gen: 1, isLegendary: false },
+			{ id: 126, name: "บูเบอร์", gen: 1, isLegendary: false },
+			{ id: 127, name: "ไคลอส", gen: 1, isLegendary: false },
+			{ id: 128, name: "เคนเทารอส", gen: 1, isLegendary: false },
+			{ id: 129, name: "คอยคิง", gen: 1, isLegendary: false },
+			{ id: 130, name: "เกียราดอส", gen: 1, isLegendary: false },
+			{ id: 131, name: "ลาพลาซ", gen: 1, isLegendary: false },
+			{ id: 132, name: "เมตามอน", gen: 1, isLegendary: false },
+			{ id: 133, name: "อีวุย", gen: 1, isLegendary: false },
+			{ id: 134, name: "ชาวเวอร์ส", gen: 1, isLegendary: false },
+			{ id: 135, name: "ธันเดอร์ส", gen: 1, isLegendary: false },
+			{ id: 136, name: "บูสเตอร์", gen: 1, isLegendary: false },
+			{ id: 137, name: "โพรีกอน", gen: 1, isLegendary: false },
+			{ id: 138, name: "ออมไนต์", gen: 1, isLegendary: false },
+			{ id: 139, name: "ออมสตาร์", gen: 1, isLegendary: false },
+			{ id: 140, name: "คาบูโตะ", gen: 1, isLegendary: false },
+			{ id: 141, name: "คาบูท็อปส์", gen: 1, isLegendary: false },
+			{ id: 142, name: "พเทอรา", gen: 1, isLegendary: false },
+			{ id: 143, name: "คาบิกอน", gen: 1, isLegendary: false },
+			{ id: 144, name: "ฟรีเซอร์", gen: 1, isLegendary: true },
+			{ id: 145, name: "ธันเดอร์", gen: 1, isLegendary: true },
+			{ id: 146, name: "ไฟเยอร์", gen: 1, isLegendary: true },
+			{ id: 147, name: "มินิริว", gen: 1, isLegendary: false },
+			{ id: 148, name: "ฮาคุริว", gen: 1, isLegendary: false },
+			{ id: 149, name: "ไคริว", gen: 1, isLegendary: false },
+			{ id: 150, name: "มิวทู", gen: 1, isLegendary: true },
+			{ id: 151, name: "มิว", gen: 1, isLegendary: true },
+            // Gen 2
+			{ id: 152, name: "จิโคริตา", gen: 2, isLegendary: false },
+			{ id: 153, name: "เบย์ลีฟ", gen: 2, isLegendary: false },
+			{ id: 154, name: "เมกาเนียม", gen: 2, isLegendary: false },
+			{ id: 155, name: "ฮิโนอาราชิ", gen: 2, isLegendary: false },
+			{ id: 156, name: "แม็กมาราชิ", gen: 2, isLegendary: false },
+			{ id: 157, name: "บาคุฟูน", gen: 2, isLegendary: false },
+			{ id: 158, name: "วานิโนโกะ", gen: 2, isLegendary: false },
+			{ id: 159, name: "อัลลิเกต", gen: 2, isLegendary: false },
+			{ id: 160, name: "ออไดล์", gen: 2, isLegendary: false },
+			{ id: 161, name: "โอทาจิ", gen: 2, isLegendary: false },
+			{ id: 162, name: "โอโอทาจิ", gen: 2, isLegendary: false },
+			{ id: 163, name: "โฮโฮ", gen: 2, isLegendary: false },
+			{ id: 164, name: "โยรุโนะซึคุ", gen: 2, isLegendary: false },
+			{ id: 165, name: "เรดิบา", gen: 2, isLegendary: false },
+			{ id: 166, name: "เรเดียน", gen: 2, isLegendary: false },
+			{ id: 167, name: "อิโตมารุ", gen: 2, isLegendary: false },
+			{ id: 168, name: "อาริอาโดส", gen: 2, isLegendary: false },
+			{ id: 169, name: "โครแบท", gen: 2, isLegendary: false },
+			{ id: 170, name: "ชอนชี", gen: 2, isLegendary: false },
+			{ id: 171, name: "แลนเทอร์น", gen: 2, isLegendary: false },
+			{ id: 172, name: "พิชู", gen: 2, isLegendary: false },
+			{ id: 173, name: "ปี", gen: 2, isLegendary: false },
+			{ id: 174, name: "พูพูริน", gen: 2, isLegendary: false },
+			{ id: 175, name: "โทเกปี", gen: 2, isLegendary: false },
+			{ id: 176, name: "โทเกชิก", gen: 2, isLegendary: false },
+			{ id: 177, name: "เนที", gen: 2, isLegendary: false },
+			{ id: 178, name: "เนทิโอ", gen: 2, isLegendary: false },
+			{ id: 179, name: "เมรีป", gen: 2, isLegendary: false },
+			{ id: 180, name: "โมโคโค", gen: 2, isLegendary: false },
+			{ id: 181, name: "เด็นริว", gen: 2, isLegendary: false },
+			{ id: 182, name: "คิเรอิฮานะ", gen: 2, isLegendary: false },
+			{ id: 183, name: "มาริล", gen: 2, isLegendary: false },
+			{ id: 184, name: "มาริลลิ", gen: 2, isLegendary: false },
+			{ id: 185, name: "อุซกกี", gen: 2, isLegendary: false },
+			{ id: 186, name: "เนียวโรโทโนะ", gen: 2, isLegendary: false },
+			{ id: 187, name: "ฮาเน็กโกะ", gen: 2, isLegendary: false },
+			{ id: 188, name: "โพพ็อกโกะ", gen: 2, isLegendary: false },
+			{ id: 189, name: "วาทักโกะ", gen: 2, isLegendary: false },
+			{ id: 190, name: "เอย์แพม", gen: 2, isLegendary: false },
+			{ id: 191, name: "ฮิมานัทส์", gen: 2, isLegendary: false },
+			{ id: 192, name: "คิวามาริ", gen: 2, isLegendary: false },
+			{ id: 193, name: "ยันมา", gen: 2, isLegendary: false },
+			{ id: 194, name: "อูปา", gen: 2, isLegendary: false },
+			{ id: 195, name: "นูโอ", gen: 2, isLegendary: false },
+			{ id: 196, name: "เอฟี", gen: 2, isLegendary: false },
+			{ id: 197, name: "แบล็คกี", gen: 2, isLegendary: false },
+			{ id: 198, name: "ยามิคาราซึ", gen: 2, isLegendary: false },
+			{ id: 199, name: "ยาโดคิง", gen: 2, isLegendary: false },
+			{ id: 200, name: "มูมา", gen: 2, isLegendary: false },
+			{ id: 201, name: "อันโนน", gen: 2, isLegendary: false },
+			{ id: 202, name: "โซนานส์", gen: 2, isLegendary: false },
+			{ id: 203, name: "คิรินริกิ", gen: 2, isLegendary: false },
+			{ id: 204, name: "คุนุกิดามะ", gen: 2, isLegendary: false },
+			{ id: 205, name: "ฟอเรทอส", gen: 2, isLegendary: false },
+			{ id: 206, name: "โนก็อจจิ", gen: 2, isLegendary: false },
+			{ id: 207, name: "ไกลกา", gen: 2, isLegendary: false },
+			{ id: 208, name: "ฮากาเนล", gen: 2, isLegendary: false },
+			{ id: 209, name: "บูล", gen: 2, isLegendary: false },
+			{ id: 210, name: "แกรนบูล", gen: 2, isLegendary: false },
+			{ id: 211, name: "ฮารีเซน", gen: 2, isLegendary: false },
+			{ id: 212, name: "ฮัซซัม", gen: 2, isLegendary: false },
+			{ id: 213, name: "สึโบสึโบะ", gen: 2, isLegendary: false },
+			{ id: 214, name: "เฮราครอส", gen: 2, isLegendary: false },
+			{ id: 215, name: "นิวลา", gen: 2, isLegendary: false },
+			{ id: 216, name: "ฮิเมกุมะ", gen: 2, isLegendary: false },
+			{ id: 217, name: "ริงกุมะ", gen: 2, isLegendary: false },
+			{ id: 218, name: "มักแม็ก", gen: 2, isLegendary: false },
+			{ id: 219, name: "มักคาร์โก", gen: 2, isLegendary: false },
+			{ id: 220, name: "อุริมู", gen: 2, isLegendary: false },
+			{ id: 221, name: "อิโนมู", gen: 2, isLegendary: false },
+			{ id: 222, name: "ซันนีโก", gen: 2, isLegendary: false },
+			{ id: 223, name: "เทปโปโอ", gen: 2, isLegendary: false },
+			{ id: 224, name: "ออคตัน", gen: 2, isLegendary: false },
+			{ id: 225, name: "เดลิเบิร์ด", gen: 2, isLegendary: false },
+			{ id: 226, name: "แมนไทน์", gen: 2, isLegendary: false },
+			{ id: 227, name: "แอร์มุโด", gen: 2, isLegendary: false },
+			{ id: 228, name: "เดลวิล", gen: 2, isLegendary: false },
+			{ id: 229, name: "เฮลการ์", gen: 2, isLegendary: false },
+			{ id: 230, name: "คิงดรา", gen: 2, isLegendary: false },
+			{ id: 231, name: "โกมาโซ", gen: 2, isLegendary: false },
+			{ id: 232, name: "ดอนแฟน", gen: 2, isLegendary: false },
+			{ id: 233, name: "โพรีกอน2", gen: 2, isLegendary: false },
+			{ id: 234, name: "โอโดชิชิ", gen: 2, isLegendary: false },
+			{ id: 235, name: "โดเบิล", gen: 2, isLegendary: false },
+			{ id: 236, name: "บัลกี", gen: 2, isLegendary: false },
+			{ id: 237, name: "คาโพเอลาร์", gen: 2, isLegendary: false },
+			{ id: 238, name: "มุจูล", gen: 2, isLegendary: false },
+			{ id: 239, name: "เอเลคิด", gen: 2, isLegendary: false },
+			{ id: 240, name: "บูบี", gen: 2, isLegendary: false },
+			{ id: 241, name: "มิลแทงค์", gen: 2, isLegendary: false },
+			{ id: 242, name: "แฮปปีนาส", gen: 2, isLegendary: false },
+			{ id: 243, name: "ไรโค", gen: 2, isLegendary: true },
+			{ id: 244, name: "เอ็นเต", gen: 2, isLegendary: true },
+			{ id: 245, name: "ซุยคูน", gen: 2, isLegendary: true },
+			{ id: 246, name: "โยกิรัส", gen: 2, isLegendary: false },
+			{ id: 247, name: "ซานากิรัส", gen: 2, isLegendary: false },
+			{ id: 248, name: "บันกิรัส", gen: 2, isLegendary: false },
+			{ id: 249, name: "ลูเกีย", gen: 2, isLegendary: true },
+			{ id: 250, name: "โฮโอ", gen: 2, isLegendary: true },
+			{ id: 251, name: "เซเลบี", gen: 2, isLegendary: true },
+            // Gen 3
+			{ id: 252, name: "คิโมริ", gen: 3, isLegendary: false },
+			{ id: 253, name: "จุปไทล์", gen: 3, isLegendary: false },
+			{ id: 254, name: "จูไคน์", gen: 3, isLegendary: false },
+			{ id: 255, name: "อาชาโม", gen: 3, isLegendary: false },
+			{ id: 256, name: "วาคาชาโม", gen: 3, isLegendary: false },
+			{ id: 257, name: "บาชาโม", gen: 3, isLegendary: false },
+			{ id: 258, name: "มิซึโกโร่", gen: 3, isLegendary: false },
+			{ id: 259, name: "นูมาโคร", gen: 3, isLegendary: false },
+			{ id: 260, name: "ลากลาจ", gen: 3, isLegendary: false },
+			{ id: 261, name: "โปชิเอนา", gen: 3, isLegendary: false },
+			{ id: 262, name: "กราเอนา", gen: 3, isLegendary: false },
+			{ id: 263, name: "จิกุซากุมะ", gen: 3, isLegendary: false },
+			{ id: 264, name: "มัสสึกุมะ", gen: 3, isLegendary: false },
+			{ id: 265, name: "เคมุตโสะ", gen: 3, isLegendary: false },
+			{ id: 266, name: "คาราซาลิส", gen: 3, isLegendary: false },
+			{ id: 267, name: "อาเกฮันท์", gen: 3, isLegendary: false },
+			{ id: 268, name: "มายูลด์", gen: 3, isLegendary: false },
+			{ id: 269, name: "โดคุเคล", gen: 3, isLegendary: false },
+			{ id: 270, name: "ฮาซึโบ", gen: 3, isLegendary: false },
+			{ id: 271, name: "ฮาซึเบรโร", gen: 3, isLegendary: false },
+			{ id: 272, name: "รุนปัปปา", gen: 3, isLegendary: false },
+			{ id: 273, name: "ทาเนโบ", gen: 3, isLegendary: false },
+			{ id: 274, name: "โคโนฮานะ", gen: 3, isLegendary: false },
+			{ id: 275, name: "ดาเทนกุ", gen: 3, isLegendary: false },
+			{ id: 276, name: "สึบาเมะ", gen: 3, isLegendary: false },
+			{ id: 277, name: "โอโอสึบาเมะ", gen: 3, isLegendary: false },
+			{ id: 278, name: "คาโมเมะ", gen: 3, isLegendary: false },
+			{ id: 279, name: "เพลิปเปอร์", gen: 3, isLegendary: false },
+			{ id: 280, name: "ราลทซ์", gen: 3, isLegendary: false },
+			{ id: 281, name: "เคอเรีย", gen: 3, isLegendary: false },
+			{ id: 282, name: "เซอไนท์", gen: 3, isLegendary: false },
+			{ id: 283, name: "อาเมทามะ", gen: 3, isLegendary: false },
+			{ id: 284, name: "อาเมมอธ", gen: 3, isLegendary: false },
+			{ id: 285, name: "คิโนโคโค", gen: 3, isLegendary: false },
+			{ id: 286, name: "คิโนกัซซา", gen: 3, isLegendary: false },
+			{ id: 287, name: "นามาเคโร", gen: 3, isLegendary: false },
+			{ id: 288, name: "ยารุคิโมโนะ", gen: 3, isLegendary: false },
+			{ id: 289, name: "เค็คคิง", gen: 3, isLegendary: false },
+			{ id: 290, name: "สึจินิน", gen: 3, isLegendary: false },
+			{ id: 291, name: "เท็คคานิน", gen: 3, isLegendary: false },
+			{ id: 292, name: "นูเคนิน", gen: 3, isLegendary: false },
+			{ id: 293, name: "โกเนียวเนียว", gen: 3, isLegendary: false },
+			{ id: 294, name: "โดกอม", gen: 3, isLegendary: false },
+			{ id: 295, name: "บาคุองก์", gen: 3, isLegendary: false },
+			{ id: 296, name: "มาคุโนชิตะ", gen: 3, isLegendary: false },
+			{ id: 297, name: "ฮาริเทยามะ", gen: 3, isLegendary: false },
+			{ id: 298, name: "รูริริ", gen: 3, isLegendary: false },
+			{ id: 299, name: "โนซพาส", gen: 3, isLegendary: false },
+			{ id: 300, name: "เอเนโค", gen: 3, isLegendary: false },
+			{ id: 301, name: "เอเนโคโรโระ", gen: 3, isLegendary: false },
+			{ id: 302, name: "ยามิรามิ", gen: 3, isLegendary: false },
+			{ id: 303, name: "คูชีท", gen: 3, isLegendary: false },
+			{ id: 304, name: "โคโคโดรา", gen: 3, isLegendary: false },
+			{ id: 305, name: "โคโดรา", gen: 3, isLegendary: false },
+			{ id: 306, name: "บอสโกโดรา", gen: 3, isLegendary: false },
+			{ id: 307, name: "อาซานัน", gen: 3, isLegendary: false },
+			{ id: 308, name: "ชาเรม", gen: 3, isLegendary: false },
+			{ id: 309, name: "ราคุไร", gen: 3, isLegendary: false },
+			{ id: 310, name: "ไลโวลต์", gen: 3, isLegendary: false },
+			{ id: 311, name: "พราเซิล", gen: 3, isLegendary: false },
+			{ id: 312, name: "ไมนัน", gen: 3, isLegendary: false },
+			{ id: 313, name: "บารูบีท", gen: 3, isLegendary: false },
+			{ id: 314, name: "อิลูมิเซะ", gen: 3, isLegendary: false },
+			{ id: 315, name: "โรเซเลีย", gen: 3, isLegendary: false },
+			{ id: 316, name: "โกคูลิน", gen: 3, isLegendary: false },
+			{ id: 317, name: "มารุโนม", gen: 3, isLegendary: false },
+			{ id: 318, name: "คิบาเนีย", gen: 3, isLegendary: false },
+			{ id: 319, name: "ซาเมฮาเดอร์", gen: 3, isLegendary: false },
+			{ id: 320, name: "เวลโกะ", gen: 3, isLegendary: false },
+			{ id: 321, name: "เวลโอ", gen: 3, isLegendary: false },
+			{ id: 322, name: "ดอนเมล", gen: 3, isLegendary: false },
+			{ id: 323, name: "บาคูดา", gen: 3, isLegendary: false },
+			{ id: 324, name: "โคทอยซ์", gen: 3, isLegendary: false },
+			{ id: 325, name: "บาเนบู", gen: 3, isLegendary: false },
+			{ id: 326, name: "บูพิก", gen: 3, isLegendary: false },
+			{ id: 327, name: "พัทชีล", gen: 3, isLegendary: false },
+			{ id: 328, name: "นัคครา", gen: 3, isLegendary: false },
+			{ id: 329, name: "วิบราวา", gen: 3, isLegendary: false },
+			{ id: 330, name: "ฟลายกอน", gen: 3, isLegendary: false },
+			{ id: 331, name: "ซาโบเนีย", gen: 3, isLegendary: false },
+			{ id: 332, name: "น็อคทัส", gen: 3, isLegendary: false },
+			{ id: 333, name: "ทิลท์โท", gen: 3, isLegendary: false },
+			{ id: 334, name: "ทิลทาลิส", gen: 3, isLegendary: false },
+			{ id: 335, name: "แซงค์กูส", gen: 3, isLegendary: false },
+			{ id: 336, name: "ฮาบูเนค", gen: 3, isLegendary: false },
+			{ id: 337, name: "ลูนาโทน", gen: 3, isLegendary: false },
+			{ id: 338, name: "โซลร็อก", gen: 3, isLegendary: false },
+			{ id: 339, name: "โดโจทช์", gen: 3, isLegendary: false },
+			{ id: 340, name: "นามาซูน", gen: 3, isLegendary: false },
+			{ id: 341, name: "เฮกานิ", gen: 3, isLegendary: false },
+			{ id: 342, name: "ชิซาริเกอร์", gen: 3, isLegendary: false },
+			{ id: 343, name: "ยาจิลอน", gen: 3, isLegendary: false },
+			{ id: 344, name: "เนนดอลล์", gen: 3, isLegendary: false },
+			{ id: 345, name: "ลิลีลา", gen: 3, isLegendary: false },
+			{ id: 346, name: "ยูเรเดิล", gen: 3, isLegendary: false },
+			{ id: 347, name: "อน็อปธ์", gen: 3, isLegendary: false },
+			{ id: 348, name: "อามัลโด", gen: 3, isLegendary: false },
+			{ id: 349, name: "ฮินบาส", gen: 3, isLegendary: false },
+			{ id: 350, name: "มิโลคารอส", gen: 3, isLegendary: false },
+			{ id: 351, name: "โปวาลุน", gen: 3, isLegendary: false },
+			{ id: 352, name: "คาคุเลียน", gen: 3, isLegendary: false },
+			{ id: 353, name: "คาเงะโบสึ", gen: 3, isLegendary: false },
+			{ id: 354, name: "จุปเป็ตตะ", gen: 3, isLegendary: false },
+			{ id: 355, name: "โยมาวารุ", gen: 3, isLegendary: false },
+			{ id: 356, name: "ซามาโยรุ", gen: 3, isLegendary: false },
+			{ id: 357, name: "โทรพิอุส", gen: 3, isLegendary: false },
+			{ id: 358, name: "ชิรีน", gen: 3, isLegendary: false },
+			{ id: 359, name: "แอบโซล", gen: 3, isLegendary: false },
+			{ id: 360, name: "โซนาโนะ", gen: 3, isLegendary: false },
+			{ id: 361, name: "ยูกิวาราชิ", gen: 3, isLegendary: false },
+			{ id: 362, name: "โอนิโกริ", gen: 3, isLegendary: false },
+			{ id: 363, name: "ทามาซาราชิ", gen: 3, isLegendary: false },
+			{ id: 364, name: "โทดอกเกลอร์", gen: 3, isLegendary: false },
+			{ id: 365, name: "โทโดเซรุกา", gen: 3, isLegendary: false },
+			{ id: 366, name: "ปาลูลุ", gen: 3, isLegendary: false },
+			{ id: 367, name: "ฮันเทล", gen: 3, isLegendary: false },
+			{ id: 368, name: "ซากุราบิส", gen: 3, isLegendary: false },
+			{ id: 369, name: "จีแลนซ์", gen: 3, isLegendary: false },
+			{ id: 370, name: "เลิฟคัส", gen: 3, isLegendary: false },
+			{ id: 371, name: "ทัทซึเบ", gen: 3, isLegendary: false },
+			{ id: 372, name: "โคโมรู", gen: 3, isLegendary: false },
+			{ id: 373, name: "โบมันเดอร์", gen: 3, isLegendary: false },
+			{ id: 374, name: "ดันบัล", gen: 3, isLegendary: false },
+			{ id: 375, name: "เมแทงก์", gen: 3, isLegendary: false },
+			{ id: 376, name: "เมทากรอส", gen: 3, isLegendary: false },
+			{ id: 377, name: "เรจิร็อก", gen: 3, isLegendary: true },
+			{ id: 378, name: "เรจิไอซ์", gen: 3, isLegendary: true },
+			{ id: 379, name: "เรจิสตีล", gen: 3, isLegendary: true },
+			{ id: 380, name: "ลาทิอาส", gen: 3, isLegendary: true },
+			{ id: 381, name: "ลาทิโอส", gen: 3, isLegendary: true },
+			{ id: 382, name: "ไคออกา", gen: 3, isLegendary: true },
+			{ id: 383, name: "กราดอน", gen: 3, isLegendary: true },
+			{ id: 384, name: "เร็คควอซา", gen: 3, isLegendary: true },
+			{ id: 385, name: "จิราชิ", gen: 3, isLegendary: true },
+			{ id: 386, name: "ดีอ็อกซิส", gen: 3, isLegendary: true },
+            // Gen 4
+			{ id: 387, name: "นาเอเทิล", gen: 4, isLegendary: false },
+			{ id: 388, name: "ฮายาชิกาเมะ", gen: 4, isLegendary: false },
+			{ id: 389, name: "โดไดโทส", gen: 4, isLegendary: false },
+			{ id: 390, name: "ฮิโกซารุ", gen: 4, isLegendary: false },
+			{ id: 391, name: "โมคาซารุ", gen: 4, isLegendary: false },
+			{ id: 392, name: "โกคาซารุ", gen: 4, isLegendary: false },
+			{ id: 393, name: "พจจามะ", gen: 4, isLegendary: false },
+			{ id: 394, name: "โพจไทชิ", gen: 4, isLegendary: false },
+			{ id: 395, name: "เอ็มเพลท์", gen: 4, isLegendary: false },
+			{ id: 396, name: "มุคคูรุ", gen: 4, isLegendary: false },
+			{ id: 397, name: "มุคูเบิร์ด", gen: 4, isLegendary: false },
+			{ id: 398, name: "มุคูฮอว์ก", gen: 4, isLegendary: false },
+			{ id: 399, name: "บิปปา", gen: 4, isLegendary: false },
+			{ id: 400, name: "บีดารุ", gen: 4, isLegendary: false },
+			{ id: 401, name: "โคโรโบชิ", gen: 4, isLegendary: false },
+			{ id: 402, name: "โคโรท็อก", gen: 4, isLegendary: false },
+			{ id: 403, name: "โคลิงก์", gen: 4, isLegendary: false },
+			{ id: 404, name: "ลุคซิโอ", gen: 4, isLegendary: false },
+			{ id: 405, name: "เร็นโทรา", gen: 4, isLegendary: false },
+			{ id: 406, name: "ซึโบมี", gen: 4, isLegendary: false },
+			{ id: 407, name: "โรสเรด", gen: 4, isLegendary: false },
+			{ id: 408, name: "ซึไกโดส", gen: 4, isLegendary: false },
+			{ id: 409, name: "แรมพาร์ด", gen: 4, isLegendary: false },
+			{ id: 410, name: "ทาเทท็อปส์", gen: 4, isLegendary: false },
+			{ id: 411, name: "โทริเด็ปส์", gen: 4, isLegendary: false },
+			{ id: 412, name: "มิโนมุจจิ", gen: 4, isLegendary: false },
+			{ id: 413, name: "มิโนมาดาม", gen: 4, isLegendary: false },
+			{ id: 414, name: "กาเมล", gen: 4, isLegendary: false },
+			{ id: 415, name: "มิทซึฮันนี", gen: 4, isLegendary: false },
+			{ id: 416, name: "บีควิน", gen: 4, isLegendary: false },
+			{ id: 417, name: "พาจิริซึ", gen: 4, isLegendary: false },
+			{ id: 418, name: "บุยเซล", gen: 4, isLegendary: false },
+			{ id: 419, name: "โฟลเซล", gen: 4, isLegendary: false },
+			{ id: 420, name: "เชอรินโบ", gen: 4, isLegendary: false },
+			{ id: 421, name: "เชอริม", gen: 4, isLegendary: false },
+			{ id: 422, name: "คารานะคูชิ", gen: 4, isLegendary: false },
+			{ id: 423, name: "ไทรโทดอน", gen: 4, isLegendary: false },
+			{ id: 424, name: "เอเทโบธ", gen: 4, isLegendary: false },
+			{ id: 425, name: "ฟูวันเต", gen: 4, isLegendary: false },
+			{ id: 426, name: "ฟูวาไรด์", gen: 4, isLegendary: false },
+			{ id: 427, name: "มิมิโรล", gen: 4, isLegendary: false },
+			{ id: 428, name: "มิมิล็อป", gen: 4, isLegendary: false },
+			{ id: 429, name: "มูมาจิ", gen: 4, isLegendary: false },
+			{ id: 430, name: "ดอนคาราซึ", gen: 4, isLegendary: false },
+			{ id: 431, name: "เนียรุมา", gen: 4, isLegendary: false },
+			{ id: 432, name: "บูเนียตโตะ", gen: 4, isLegendary: false },
+			{ id: 433, name: "ลีชาน", gen: 4, isLegendary: false },
+			{ id: 434, name: "สกังพู", gen: 4, isLegendary: false },
+			{ id: 435, name: "สกาแทงค์", gen: 4, isLegendary: false },
+			{ id: 436, name: "โดมิเรอร์", gen: 4, isLegendary: false },
+			{ id: 437, name: "โดทาคุน", gen: 4, isLegendary: false },
+			{ id: 438, name: "อุโซฮาจิ", gen: 4, isLegendary: false },
+			{ id: 439, name: "มาเนเน", gen: 4, isLegendary: false },
+			{ id: 440, name: "พินพูคุ", gen: 4, isLegendary: false },
+			{ id: 441, name: "เพแรป", gen: 4, isLegendary: false },
+			{ id: 442, name: "มิคารูเกะ", gen: 4, isLegendary: false },
+			{ id: 443, name: "ฟุคามารุ", gen: 4, isLegendary: false },
+			{ id: 444, name: "กาไบต์", gen: 4, isLegendary: false },
+			{ id: 445, name: "กาเบรียส", gen: 4, isLegendary: false },
+			{ id: 446, name: "กอนเบะ", gen: 4, isLegendary: false },
+			{ id: 447, name: "ริโอลุ", gen: 4, isLegendary: false },
+			{ id: 448, name: "ลูคาริโอ", gen: 4, isLegendary: false },
+			{ id: 449, name: "ฮิปโปโปตัส", gen: 4, isLegendary: false },
+			{ id: 450, name: "คาบัลดอน", gen: 4, isLegendary: false },
+			{ id: 451, name: "สกอร์ปี", gen: 4, isLegendary: false },
+			{ id: 452, name: "โดราเปียน", gen: 4, isLegendary: false },
+			{ id: 453, name: "กูเรกกรู", gen: 4, isLegendary: false },
+			{ id: 454, name: "โดคูร็อก", gen: 4, isLegendary: false },
+			{ id: 455, name: "มัสคิปปา", gen: 4, isLegendary: false },
+			{ id: 456, name: "เคโคโอ", gen: 4, isLegendary: false },
+			{ id: 457, name: "เนโอแลนท์", gen: 4, isLegendary: false },
+			{ id: 458, name: "ทาแมนทา", gen: 4, isLegendary: false },
+			{ id: 459, name: "ยูกิคาบูริ", gen: 4, isLegendary: false },
+			{ id: 460, name: "ยูกิโนะโอ", gen: 4, isLegendary: false },
+			{ id: 461, name: "มานิวลา", gen: 4, isLegendary: false },
+			{ id: 462, name: "จิบะคอยล์", gen: 4, isLegendary: false },
+			{ id: 463, name: "เบโรเบลท์", gen: 4, isLegendary: false },
+			{ id: 464, name: "โดไซดอน", gen: 4, isLegendary: false },
+			{ id: 465, name: "โมจัมโบ", gen: 4, isLegendary: false },
+			{ id: 466, name: "เอเลคิเบิล", gen: 4, isLegendary: false },
+			{ id: 467, name: "บูเบิร์น", gen: 4, isLegendary: false },
+			{ id: 468, name: "โทเกคิส", gen: 4, isLegendary: false },
+			{ id: 469, name: "เมกะยันมา", gen: 4, isLegendary: false },
+			{ id: 470, name: "ลีเฟีย", gen: 4, isLegendary: false },
+			{ id: 471, name: "กราเซีย", gen: 4, isLegendary: false },
+			{ id: 472, name: "ไกลออน", gen: 4, isLegendary: false },
+			{ id: 473, name: "แมมมู", gen: 4, isLegendary: false },
+			{ id: 474, name: "โพรีกอน แซด", gen: 4, isLegendary: false },
+			{ id: 475, name: "เอรูเรโด", gen: 4, isLegendary: false },
+			{ id: 476, name: "ไดโนซ", gen: 4, isLegendary: false },
+			{ id: 477, name: "โยนัวร์", gen: 4, isLegendary: false },
+			{ id: 478, name: "ยูกิเมโนโกะ", gen: 4, isLegendary: false },
+			{ id: 479, name: "โรตอม", gen: 4, isLegendary: false },
+			{ id: 480, name: "ยุคซี", gen: 4, isLegendary: true },
+			{ id: 481, name: "เอ็มริต", gen: 4, isLegendary: true },
+			{ id: 482, name: "อักนอม", gen: 4, isLegendary: true },
+			{ id: 483, name: "ดีอัลกา", gen: 4, isLegendary: true },
+			{ id: 484, name: "พัลเกีย", gen: 4, isLegendary: true },
+			{ id: 485, name: "ฮีดราน", gen: 4, isLegendary: true },
+			{ id: 486, name: "เรจิกิกัส", gen: 4, isLegendary: true },
+			{ id: 487, name: "กิราตินา", gen: 4, isLegendary: true },
+			{ id: 488, name: "เครเซเลีย", gen: 4, isLegendary: true },
+			{ id: 489, name: "ฟีโอเน", gen: 4, isLegendary: true },
+			{ id: 490, name: "มานาฟี", gen: 4, isLegendary: true },
+			{ id: 491, name: "ดาร์กไร", gen: 4, isLegendary: true },
+			{ id: 492, name: "เชมิน", gen: 4, isLegendary: true },
+			{ id: 493, name: "อาร์เซอุส", gen: 4, isLegendary: true },
+			      // Pre-Gen 5
+			{ id: 494, name: "วิคทินี", gen: 5, isLegendary: true },
+            // Gen 5
+			{ id: 495, name: "สึทาจะ", gen: 5, isLegendary: false },
+			{ id: 496, name: "จาโนวี", gen: 5, isLegendary: false },
+			{ id: 497, name: "จาโลดา", gen: 5, isLegendary: false },
+			{ id: 498, name: "โพคาบู", gen: 5, isLegendary: false },
+			{ id: 499, name: "จาโอบู", gen: 5, isLegendary: false },
+			{ id: 500, name: "เอ็นบูโอ", gen: 5, isLegendary: false },
+			{ id: 501, name: "มิจูมารุ", gen: 5, isLegendary: false },
+			{ id: 502, name: "ฟุตาจิมารุ", gen: 5, isLegendary: false },
+			{ id: 503, name: "ไดเคนคิ", gen: 5, isLegendary: false },
+			{ id: 504, name: "มิเนซูมิ", gen: 5, isLegendary: false },
+			{ id: 505, name: "มิรูฮอก", gen: 5, isLegendary: false },
+			{ id: 506, name: "โยเทอรี", gen: 5, isLegendary: false },
+			{ id: 507, name: "เฮอเดอเรีย", gen: 5, isLegendary: false },
+			{ id: 508, name: "มูแลนด์", gen: 5, isLegendary: false },
+			{ id: 509, name: "โจโรเนโกะ", gen: 5, isLegendary: false },
+			{ id: 510, name: "เลพัลดัส", gen: 5, isLegendary: false },
+			{ id: 511, name: "ยานัปปุ", gen: 5, isLegendary: false },
+			{ id: 512, name: "ยานักกี", gen: 5, isLegendary: false },
+			{ id: 513, name: "บาอปปุ", gen: 5, isLegendary: false },
+			{ id: 514, name: "บาอกกี", gen: 5, isLegendary: false },
+			{ id: 515, name: "ฮิยัปปุ", gen: 5, isLegendary: false },
+			{ id: 516, name: "ฮิยักกี", gen: 5, isLegendary: false },
+			{ id: 517, name: "มุนนะ", gen: 5, isLegendary: false },
+			{ id: 518, name: "มุชานา", gen: 5, isLegendary: false },
+			{ id: 519, name: "มาเมพาโตะ", gen: 5, isLegendary: false },
+			{ id: 520, name: "ฮาโทโบ", gen: 5, isLegendary: false },
+			{ id: 521, name: "เคนโฮโล", gen: 5, isLegendary: false },
+			{ id: 522, name: "ชิมามา", gen: 5, isLegendary: false },
+			{ id: 523, name: "ซีบรายกา", gen: 5, isLegendary: false },
+			{ id: 524, name: "ดันโกโร", gen: 5, isLegendary: false },
+			{ id: 525, name: "กันเทิล", gen: 5, isLegendary: false },
+			{ id: 526, name: "กิไกอาซ", gen: 5, isLegendary: false },
+			{ id: 527, name: "โคโรโมริ", gen: 5, isLegendary: false },
+			{ id: 528, name: "โคโคโรโมริ", gen: 5, isLegendary: false },
+			{ id: 529, name: "โมกุริว", gen: 5, isLegendary: false },
+			{ id: 530, name: "โดริวซึ", gen: 5, isLegendary: false },
+			{ id: 531, name: "ทาบุนเนะ", gen: 5, isLegendary: false },
+			{ id: 532, name: "ด็อคโคเรอร์", gen: 5, isLegendary: false },
+			{ id: 533, name: "โดเท็คคทซึ", gen: 5, isLegendary: false },
+			{ id: 534, name: "โรบูชิน", gen: 5, isLegendary: false },
+			{ id: 535, name: "โอทามาโร", gen: 5, isLegendary: false },
+			{ id: 536, name: "กามาการุ", gen: 5, isLegendary: false },
+			{ id: 537, name: "กามาเกโรเกะ", gen: 5, isLegendary: false },
+			{ id: 538, name: "นาเกคิ", gen: 5, isLegendary: false },
+			{ id: 539, name: "ดาเกคิ", gen: 5, isLegendary: false },
+			{ id: 540, name: "คูรูมีรุ", gen: 5, isLegendary: false },
+			{ id: 541, name: "คูรูมายุ", gen: 5, isLegendary: false },
+			{ id: 542, name: "ฮาฮาโคโมริ", gen: 5, isLegendary: false },
+			{ id: 543, name: "ฟูชิเดะ", gen: 5, isLegendary: false },
+			{ id: 544, name: "วีกา", gen: 5, isLegendary: false },
+			{ id: 545, name: "เพนโดรา", gen: 5, isLegendary: false },
+			{ id: 546, name: "โมนเมน", gen: 5, isLegendary: false },
+			{ id: 547, name: "เอลฟูน", gen: 5, isLegendary: false },
+			{ id: 548, name: "จูริเน", gen: 5, isLegendary: false },
+			{ id: 549, name: "เดรเดีย", gen: 5, isLegendary: false },
+			{ id: 550, name: "บาสราโอ", gen: 5, isLegendary: false },
+			{ id: 551, name: "เมะกุโรโกะ", gen: 5, isLegendary: false },
+			{ id: 552, name: "วารุวิล", gen: 5, isLegendary: false },
+			{ id: 553, name: "วารุเวียล", gen: 5, isLegendary: false },
+			{ id: 554, name: "ดารุมักกะ", gen: 5, isLegendary: false },
+			{ id: 555, name: "ฮิฮิดารุมะ", gen: 5, isLegendary: false },
+			{ id: 556, name: "มาราคัจจิ", gen: 5, isLegendary: false },
+			{ id: 557, name: "อิชิซึไม", gen: 5, isLegendary: false },
+			{ id: 558, name: "อิวาพาเลซ", gen: 5, isLegendary: false },
+			{ id: 559, name: "ซึรุกกุ", gen: 5, isLegendary: false },
+			{ id: 560, name: "ซึรุซึคิน", gen: 5, isLegendary: false },
+			{ id: 561, name: "ซิมโบลา", gen: 5, isLegendary: false },
+			{ id: 562, name: "เดธมาส", gen: 5, isLegendary: false },
+			{ id: 563, name: "เดธคาน", gen: 5, isLegendary: false },
+			{ id: 564, name: "โปรโตกา", gen: 5, isLegendary: false },
+			{ id: 565, name: "อบาโกรา", gen: 5, isLegendary: false },
+			{ id: 566, name: "อาเคน", gen: 5, isLegendary: false },
+			{ id: 567, name: "อาเคโอส", gen: 5, isLegendary: false },
+			{ id: 568, name: "ยาบุคุรอน", gen: 5, isLegendary: false },
+			{ id: 569, name: "ดัสต์ดาส", gen: 5, isLegendary: false },
+			{ id: 570, name: "โซรัว", gen: 5, isLegendary: false },
+			{ id: 571, name: "โซโรอาร์ค", gen: 5, isLegendary: false },
+			{ id: 572, name: "จิลามี", gen: 5, isLegendary: false },
+			{ id: 573, name: "จิลาจีโน", gen: 5, isLegendary: false },
+			{ id: 574, name: "โกธิมู", gen: 5, isLegendary: false },
+			{ id: 575, name: "โกธิมิรุ", gen: 5, isLegendary: false },
+			{ id: 576, name: "โกธิรูเซล", gen: 5, isLegendary: false },
+			{ id: 577, name: "ยูนิรัน", gen: 5, isLegendary: false },
+			{ id: 578, name: "ดาบูลัน", gen: 5, isLegendary: false },
+			{ id: 579, name: "แลนคูลัส", gen: 5, isLegendary: false },
+			{ id: 580, name: "โคอารูฮี", gen: 5, isLegendary: false },
+			{ id: 581, name: "สวอนนา", gen: 5, isLegendary: false },
+			{ id: 582, name: "วานิเพ็ตติ", gen: 5, isLegendary: false },
+			{ id: 583, name: "วานิริช", gen: 5, isLegendary: false },
+			{ id: 584, name: "ไบวานิลลา", gen: 5, isLegendary: false },
+			{ id: 585, name: "ชิคิจิกะ", gen: 5, isLegendary: false },
+			{ id: 586, name: "เมบูคิจิกะ", gen: 5, isLegendary: false },
+			{ id: 587, name: "เอมอนกา", gen: 5, isLegendary: false },
+			{ id: 588, name: "คาบูรูโมะ", gen: 5, isLegendary: false },
+			{ id: 589, name: "ชูวัลโก", gen: 5, isLegendary: false },
+			{ id: 590, name: "ทามาเกะทาเคะ", gen: 5, isLegendary: false },
+			{ id: 591, name: "โมโรบาเรรุ", gen: 5, isLegendary: false },
+			{ id: 592, name: "พูรูริล", gen: 5, isLegendary: false },
+			{ id: 593, name: "บูรุนเจล", gen: 5, isLegendary: false },
+			{ id: 594, name: "มามันโบ", gen: 5, isLegendary: false },
+			{ id: 595, name: "บาชูรุ", gen: 5, isLegendary: false },
+			{ id: 596, name: "เดนทูลา", gen: 5, isLegendary: false },
+			{ id: 597, name: "เทสซีด", gen: 5, isLegendary: false },
+			{ id: 598, name: "นัทเทรย์", gen: 5, isLegendary: false },
+			{ id: 599, name: "เกียร์", gen: 5, isLegendary: false },
+			{ id: 600, name: "กิเกียร์", gen: 5, isLegendary: false },
+			{ id: 601, name: "กิกิเกียร์", gen: 5, isLegendary: false },
+			{ id: 602, name: "ชิบิชิราซึ", gen: 5, isLegendary: false },
+			{ id: 603, name: "ชิบิบีล", gen: 5, isLegendary: false },
+			{ id: 604, name: "ชิบิรูดอน", gen: 5, isLegendary: false },
+			{ id: 605, name: "ลีเกรย์", gen: 5, isLegendary: false },
+			{ id: 606, name: "โอเบ็ม", gen: 5, isLegendary: false },
+			{ id: 607, name: "ฮิโตโมชิ", gen: 5, isLegendary: false },
+			{ id: 608, name: "แลมพูลา", gen: 5, isLegendary: false },
+			{ id: 609, name: "แชนเดลา", gen: 5, isLegendary: false },
+			{ id: 610, name: "คิบาโกะ", gen: 5, isLegendary: false },
+			{ id: 611, name: "โอโนนโดะ", gen: 5, isLegendary: false },
+			{ id: 612, name: "โอโนโนคุส", gen: 5, isLegendary: false },
+			{ id: 613, name: "คูมะชุน", gen: 5, isLegendary: false },
+			{ id: 614, name: "ทันแบร์", gen: 5, isLegendary: false },
+			{ id: 615, name: "ฟรีจิโอ", gen: 5, isLegendary: false },
+			{ id: 616, name: "โชโบมากิ", gen: 5, isLegendary: false },
+			{ id: 617, name: "อกิลดา", gen: 5, isLegendary: false },
+			{ id: 618, name: "มักเกียว", gen: 5, isLegendary: false },
+			{ id: 619, name: "โคโจฟู", gen: 5, isLegendary: false },
+			{ id: 620, name: "โคโจนโดะ", gen: 5, isLegendary: false },
+			{ id: 621, name: "คริมแกน", gen: 5, isLegendary: false },
+			{ id: 622, name: "โกบิท", gen: 5, isLegendary: false },
+			{ id: 623, name: "โกลูก", gen: 5, isLegendary: false },
+			{ id: 624, name: "โคมาทานา", gen: 5, isLegendary: false },
+			{ id: 625, name: "คิริคิซัน", gen: 5, isLegendary: false },
+			{ id: 626, name: "บัฟฟรอน", gen: 5, isLegendary: false },
+			{ id: 627, name: "วาชิบอน", gen: 5, isLegendary: false },
+			{ id: 628, name: "วอร์เกิล", gen: 5, isLegendary: false },
+			{ id: 629, name: "วัลไจ", gen: 5, isLegendary: false },
+			{ id: 630, name: "วัลจีนา", gen: 5, isLegendary: false },
+			{ id: 631, name: "คุยทาแรน", gen: 5, isLegendary: false },
+			{ id: 632, name: "ไอแอนท์", gen: 5, isLegendary: false },
+			{ id: 633, name: "โมโนซึ", gen: 5, isLegendary: false },
+			{ id: 634, name: "จิเฮด", gen: 5, isLegendary: false },
+			{ id: 635, name: "ซาซันดรา", gen: 5, isLegendary: false },
+			{ id: 636, name: "เมลาร์วา", gen: 5, isLegendary: false },
+			{ id: 637, name: "อุลกามอธ", gen: 5, isLegendary: false },
+			{ id: 638, name: "โคบัลออน", gen: 5, isLegendary: true },
+			{ id: 639, name: "เทราคิออน", gen: 5, isLegendary: true },
+			{ id: 640, name: "วิริซิออน", gen: 5, isLegendary: true },
+			{ id: 641, name: "ทอร์เนลอส", gen: 5, isLegendary: true },
+			{ id: 642, name: "โวลโทลอส", gen: 5, isLegendary: true },
+			{ id: 643, name: "เรชิรัม", gen: 5, isLegendary: true },
+			{ id: 644, name: "เซครอม", gen: 5, isLegendary: true },
+			{ id: 645, name: "แลนโดลอส", gen: 5, isLegendary: true },
+			{ id: 646, name: "คิวเรม", gen: 5, isLegendary: true },
+			{ id: 647, name: "เคลดิโอ", gen: 5, isLegendary: true },
+			{ id: 648, name: "เมโลเอตตา", gen: 5, isLegendary: true },
+			{ id: 649, name: "เกโนเซ็กท์", gen: 5, isLegendary: true },
+            // Gen 6
+			{ id: 650, name: "ฮาริมารอน", gen: 6, isLegendary: false },
+			{ id: 651, name: "ฮาริบอร์ก", gen: 6, isLegendary: false },
+			{ id: 652, name: "บริการอน", gen: 6, isLegendary: false },
+			{ id: 653, name: "ฟ็อกโกะ", gen: 6, isLegendary: false },
+			{ id: 654, name: "เทลนาร์", gen: 6, isLegendary: false },
+			{ id: 655, name: "มาฟ็อกซี", gen: 6, isLegendary: false },
+			{ id: 656, name: "เคโรมัตซึ", gen: 6, isLegendary: false },
+			{ id: 657, name: "เกโคกาชิระ", gen: 6, isLegendary: false },
+			{ id: 658, name: "เก็คโคกะ", gen: 6, isLegendary: false },
+			{ id: 659, name: "โฮรุบี", gen: 6, isLegendary: false },
+			{ id: 660, name: "โฮรูโด", gen: 6, isLegendary: false },
+			{ id: 661, name: "ยายาโคมะ", gen: 6, isLegendary: false },
+			{ id: 662, name: "ฮิโนยาโคมะ", gen: 6, isLegendary: false },
+			{ id: 663, name: "ไฟร์แอโรว์", gen: 6, isLegendary: false },
+			{ id: 664, name: "โคฟูคิมูชิ", gen: 6, isLegendary: false },
+			{ id: 665, name: "โคฟูไร", gen: 6, isLegendary: false },
+			{ id: 666, name: "วิวิญอง", gen: 6, isLegendary: false },
+			{ id: 667, name: "ชิชิโกะ", gen: 6, isLegendary: false },
+			{ id: 668, name: "คาเอ็นจิชิ", gen: 6, isLegendary: false },
+			{ id: 669, name: "ฟลาเบเบ", gen: 6, isLegendary: false },
+			{ id: 670, name: "ฟลาเอตเต", gen: 6, isLegendary: false },
+			{ id: 671, name: "ฟลาเจส", gen: 6, isLegendary: false },
+			{ id: 672, name: "เมเคิล", gen: 6, isLegendary: false },
+			{ id: 673, name: "โกโกท", gen: 6, isLegendary: false },
+			{ id: 674, name: "ยันชัม", gen: 6, isLegendary: false },
+			{ id: 675, name: "โกรอนดะ", gen: 6, isLegendary: false },
+			{ id: 676, name: "ทริมเมียน", gen: 6, isLegendary: false },
+			{ id: 677, name: "เนียสเปอร์", gen: 6, isLegendary: false },
+			{ id: 678, name: "เนียโอนิกซ์", gen: 6, isLegendary: false },
+			{ id: 679, name: "ฮิโตทซึกิ", gen: 6, isLegendary: false },
+			{ id: 680, name: "นิดังกิล", gen: 6, isLegendary: false },
+			{ id: 681, name: "กิลการ์ด", gen: 6, isLegendary: false },
+			{ id: 682, name: "ชูชูป", gen: 6, isLegendary: false },
+			{ id: 683, name: "เฟรฟุวัน", gen: 6, isLegendary: false },
+			{ id: 684, name: "เพร็อพพัฟ", gen: 6, isLegendary: false },
+			{ id: 685, name: "เพโรรีม", gen: 6, isLegendary: false },
+			{ id: 686, name: "มาอีกะ", gen: 6, isLegendary: false },
+			{ id: 687, name: "คาลามาเนโร", gen: 6, isLegendary: false },
+			{ id: 688, name: "คาเมเทเทะ", gen: 6, isLegendary: false },
+			{ id: 689, name: "กาเมโนเดส", gen: 6, isLegendary: false },
+			{ id: 690, name: "คูซูโม", gen: 6, isLegendary: false },
+			{ id: 691, name: "ดรามิโดโร", gen: 6, isLegendary: false },
+			{ id: 692, name: "อุเด็ปโป", gen: 6, isLegendary: false },
+			{ id: 693, name: "บลอสเตอร์", gen: 6, isLegendary: false },
+			{ id: 694, name: "เอลิคิเทล", gen: 6, isLegendary: false },
+			{ id: 695, name: "เอเลซาร์ด", gen: 6, isLegendary: false },
+			{ id: 696, name: "จิโกรัส", gen: 6, isLegendary: false },
+			{ id: 697, name: "กาจิโกรัส", gen: 6, isLegendary: false },
+			{ id: 698, name: "อมารุส", gen: 6, isLegendary: false },
+			{ id: 699, name: "อมารูรูกา", gen: 6, isLegendary: false },
+			{ id: 700, name: "นิมเฟีย", gen: 6, isLegendary: false },
+			{ id: 701, name: "ลูจาบูล", gen: 6, isLegendary: false },
+			{ id: 702, name: "เดเด็นเนะ", gen: 6, isLegendary: false },
+			{ id: 703, name: "เมเลซี", gen: 6, isLegendary: false },
+			{ id: 704, name: "นูเมรา", gen: 6, isLegendary: false },
+			{ id: 705, name: "นูเมล", gen: 6, isLegendary: false },
+			{ id: 706, name: "นูเมลกอน", gen: 6, isLegendary: false },
+			{ id: 707, name: "เคลฟฟี", gen: 6, isLegendary: false },
+			{ id: 708, name: "โบคุเร", gen: 6, isLegendary: false },
+			{ id: 709, name: "โอร็อต", gen: 6, isLegendary: false },
+			{ id: 710, name: "บาเค็จจะ", gen: 6, isLegendary: false },
+			{ id: 711, name: "พัมพ์จิน", gen: 6, isLegendary: false },
+			{ id: 712, name: "คาจิคอล", gen: 6, isLegendary: false },
+			{ id: 713, name: "เครเบส", gen: 6, isLegendary: false },
+			{ id: 714, name: "ออนแบท", gen: 6, isLegendary: false },
+			{ id: 715, name: "ออนเวิร์น", gen: 6, isLegendary: false },
+			{ id: 716, name: "เซอเนียส", gen: 6, isLegendary: true },
+			{ id: 717, name: "อีเวลทอล", gen: 6, isLegendary: true },
+			{ id: 718, name: "ซีการ์ด", gen: 6, isLegendary: true },
+			{ id: 719, name: "ดีแอนซี", gen: 6, isLegendary: true },
+			{ id: 720, name: "ฮูปา", gen: 6, isLegendary: true },
+			{ id: 721, name: "โวลเคเนียน", gen: 6, isLegendary: true },
+            // Gen 7
+			{ id: 722, name: "โมคุโร", gen: 7, isLegendary: false },
+			{ id: 723, name: "ฟุคุซึโร", gen: 7, isLegendary: false },
+			{ id: 724, name: "จูไนเปอร์", gen: 7, isLegendary: false },
+			{ id: 725, name: "เนียบี", gen: 7, isLegendary: false },
+			{ id: 726, name: "เนียฮีท", gen: 7, isLegendary: false },
+			{ id: 727, name: "กาโอกาเอ็น", gen: 7, isLegendary: false },
+			{ id: 728, name: "อชิมาริ", gen: 7, isLegendary: false },
+			{ id: 729, name: "โอชามาริ", gen: 7, isLegendary: false },
+			{ id: 730, name: "อชิเรน", gen: 7, isLegendary: false },
+			{ id: 731, name: "สึสึเคระ", gen: 7, isLegendary: false },
+			{ id: 732, name: "เครารัปปา", gen: 7, isLegendary: false },
+			{ id: 733, name: "โดเดคาบาชิ", gen: 7, isLegendary: false },
+			{ id: 734, name: "ยังกูส", gen: 7, isLegendary: false },
+			{ id: 735, name: "เดคากูส", gen: 7, isLegendary: false },
+			{ id: 736, name: "อโกจิมูชิ", gen: 7, isLegendary: false },
+			{ id: 737, name: "เด็นจิมูชิ", gen: 7, isLegendary: false },
+			{ id: 738, name: "คุวากานอน", gen: 7, isLegendary: false },
+			{ id: 739, name: "มาเค็นคานิ", gen: 7, isLegendary: false },
+			{ id: 740, name: "เคเค็นคานิ", gen: 7, isLegendary: false },
+			{ id: 741, name: "โอโดริโดริ", gen: 7, isLegendary: false },
+			{ id: 742, name: "อบูรี", gen: 7, isLegendary: false },
+			{ id: 743, name: "อบูริบง", gen: 7, isLegendary: false },
+			{ id: 744, name: "อิวังโค", gen: 7, isLegendary: false },
+			{ id: 745, name: "ลูกาลูกัน", gen: 7, isLegendary: false },
+			{ id: 746, name: "โยวาชิ", gen: 7, isLegendary: false },
+			{ id: 747, name: "ฮิโดอิเดะ", gen: 7, isLegendary: false },
+			{ id: 748, name: "โดฮิโดอิเดะ", gen: 7, isLegendary: false },
+			{ id: 749, name: "โดโรบังโค", gen: 7, isLegendary: false },
+			{ id: 750, name: "บัมบะโดโร", gen: 7, isLegendary: false },
+			{ id: 751, name: "ชิซึคุโม", gen: 7, isLegendary: false },
+			{ id: 752, name: "โอนิชิซึคุโม", gen: 7, isLegendary: false },
+			{ id: 753, name: "คาริคิริ", gen: 7, isLegendary: false },
+			{ id: 754, name: "รารันเทส", gen: 7, isLegendary: false },
+			{ id: 755, name: "เนมาชู", gen: 7, isLegendary: false },
+			{ id: 756, name: "มาเชโดะ", gen: 7, isLegendary: false },
+			{ id: 757, name: "ยาโทโมริ", gen: 7, isLegendary: false },
+			{ id: 758, name: "เอ็นนิวท์", gen: 7, isLegendary: false },
+			{ id: 759, name: "นุยโคกุมะ", gen: 7, isLegendary: false },
+			{ id: 760, name: "คิเทรุกุมะ", gen: 7, isLegendary: false },
+			{ id: 761, name: "อมาคาจิ", gen: 7, isLegendary: false },
+			{ id: 762, name: "อมามาอิโกะ", gen: 7, isLegendary: false },
+			{ id: 763, name: "อมาโจ", gen: 7, isLegendary: false },
+			{ id: 764, name: "คิววะวา", gen: 7, isLegendary: false },
+			{ id: 765, name: "ยาเรยูตัน", gen: 7, isLegendary: false },
+			{ id: 766, name: "นาเกสึเคซารุ", gen: 7, isLegendary: false },
+			{ id: 767, name: "โคโซคูมูชิ", gen: 7, isLegendary: false },
+			{ id: 768, name: "กูโซคูมูฉะ", gen: 7, isLegendary: false },
+			{ id: 769, name: "ซึนาบา", gen: 7, isLegendary: false },
+			{ id: 770, name: "ชิโรเดซึนะ", gen: 7, isLegendary: false },
+			{ id: 771, name: "นามาโคบูชิ", gen: 7, isLegendary: false },
+			{ id: 772, name: "ไทป์: นัล", gen: 7, isLegendary: true },
+			{ id: 773, name: "ซิลวาดี", gen: 7, isLegendary: true },
+			{ id: 774, name: "เมเทโน", gen: 7, isLegendary: false },
+			{ id: 775, name: "เน็คโคอาลา", gen: 7, isLegendary: false },
+			{ id: 776, name: "บาคุกาเมส", gen: 7, isLegendary: false },
+			{ id: 777, name: "โทเกะเดมารุ", gen: 7, isLegendary: false },
+			{ id: 778, name: "มิมิคคิว", gen: 7, isLegendary: false },
+			{ id: 779, name: "ฮากิกิชิริ", gen: 7, isLegendary: false },
+			{ id: 780, name: "จิจีลอน", gen: 7, isLegendary: false },
+			{ id: 781, name: "ดาดาริน", gen: 7, isLegendary: false },
+			{ id: 782, name: "จาราโค", gen: 7, isLegendary: false },
+			{ id: 783, name: "จารังโก", gen: 7, isLegendary: false },
+			{ id: 784, name: "จารารังกา", gen: 7, isLegendary: false },
+			{ id: 785, name: "คาปู โคเคโค", gen: 7, isLegendary: true },
+			{ id: 786, name: "คาปู เทเทฟู", gen: 7, isLegendary: true },
+			{ id: 787, name: "คาปู บูลูลู", gen: 7, isLegendary: true },
+			{ id: 788, name: "คาปู... เรฮิเร", gen: 7, isLegendary: true },
+			{ id: 789, name: "คอสม็อก", gen: 7, isLegendary: true },
+			{ id: 790, name: "คอสโมม", gen: 7, isLegendary: true },
+			{ id: 791, name: "โซลกาเลโอ", gen: 7, isLegendary: true },
+			{ id: 792, name: "ลูนาอาลา", gen: 7, isLegendary: true },
+			{ id: 793, name: "อุทซึรอยด์", gen: 7, isLegendary: true },
+			{ id: 794, name: "มัสชิบูน", gen: 7, isLegendary: true },
+			{ id: 795, name: "เฟโรเช", gen: 7, isLegendary: true },
+			{ id: 796, name: "เด็นจูโมคุ", gen: 7, isLegendary: true },
+			{ id: 797, name: "เท็คคากูยะ", gen: 7, isLegendary: true },
+			{ id: 798, name: "คามิทซึรูกิ", gen: 7, isLegendary: true },
+			{ id: 799, name: "อคูจิคิง", gen: 7, isLegendary: true },
+			{ id: 800, name: "เนครอสมา", gen: 7, isLegendary: true },
+			{ id: 801, name: "มาเกียนา", gen: 7, isLegendary: true },
+			{ id: 802, name: "มาร์ชาโดว์", gen: 7, isLegendary: true },
+			{ id: 803, name: "เบเวนอม", gen: 7, isLegendary: true },
+			{ id: 804, name: "อาโกโยง", gen: 7, isLegendary: true },
+			{ id: 805, name: "สึนเดะสึนเดะ", gen: 7, isLegendary: true },
+			{ id: 806, name: "ซุกะโด้ง", gen: 7, isLegendary: true },
+			{ id: 807, name: "เซราโอรา", gen: 7, isLegendary: true },
+			{ id: 808, name: "เมลตัน", gen: 7, isLegendary: true },
+			{ id: 809, name: "เมลเมทัล", gen: 7, isLegendary: true },
+            // Gen 8
+			{ id: 810, name: "ซารุโนริ", gen: 8, isLegendary: false },
+			{ id: 811, name: "บาจินคิ", gen: 8, isLegendary: false },
+			{ id: 812, name: "กอริลลันดา", gen: 8, isLegendary: false },
+			{ id: 813, name: "ฮิบานี", gen: 8, isLegendary: false },
+			{ id: 814, name: "แรบบิฟุต", gen: 8, isLegendary: false },
+			{ id: 815, name: "เอสเบิร์น", gen: 8, isLegendary: false },
+			{ id: 816, name: "เมซซอน", gen: 8, isLegendary: false },
+			{ id: 817, name: "จิเมเลียน", gen: 8, isLegendary: false },
+			{ id: 818, name: "อินเทเลียน", gen: 8, isLegendary: false },
+			{ id: 819, name: "โฮชิกะริสึ", gen: 8, isLegendary: false },
+			{ id: 820, name: "โยคุบะริสึ", gen: 8, isLegendary: false },
+			{ id: 821, name: "โคโคการะ", gen: 8, isLegendary: false },
+			{ id: 822, name: "อาโอการาสึ", gen: 8, isLegendary: false },
+			{ id: 823, name: "อาร์เมอร์การ์", gen: 8, isLegendary: false },
+			{ id: 824, name: "ซัจจิมุชิ", gen: 8, isLegendary: false },
+			{ id: 825, name: "เรโดมุชิ", gen: 8, isLegendary: false },
+			{ id: 826, name: "อิออร์บ", gen: 8, isLegendary: false },
+			{ id: 827, name: "คุสุเนะ", gen: 8, isLegendary: false },
+			{ id: 828, name: "ฟ็อกสไล", gen: 8, isLegendary: false },
+			{ id: 829, name: "ฮิเมงกะ", gen: 8, isLegendary: false },
+			{ id: 830, name: "วาตะชิรากะ", gen: 8, isLegendary: false },
+			{ id: 831, name: "วูลู", gen: 8, isLegendary: false },
+			{ id: 832, name: "ไบวูลู", gen: 8, isLegendary: false },
+			{ id: 833, name: "คามุคาเมะ", gen: 8, isLegendary: false },
+			{ id: 834, name: "คาจิริกาเมะ", gen: 8, isLegendary: false },
+			{ id: 835, name: "วันปาจิ", gen: 8, isLegendary: false },
+			{ id: 836, name: "พัลส์วัน", gen: 8, isLegendary: false },
+			{ id: 837, name: "ทันด้ง", gen: 8, isLegendary: false },
+			{ id: 838, name: "โทร็อกกอน", gen: 8, isLegendary: false },
+			{ id: 839, name: "เซคิทันซัง", gen: 8, isLegendary: false },
+			{ id: 840, name: "คาจิชชู", gen: 8, isLegendary: false },
+			{ id: 841, name: "แอปปริว", gen: 8, isLegendary: false },
+			{ id: 842, name: "ทารุปเปิล", gen: 8, isLegendary: false },
+			{ id: 843, name: "ซึนะเฮบิ", gen: 8, isLegendary: false },
+			{ id: 844, name: "ซาไดจา", gen: 8, isLegendary: false },
+			{ id: 845, name: "อุ๊อุ", gen: 8, isLegendary: false },
+			{ id: 846, name: "ซาชิคามาสึ", gen: 8, isLegendary: false },
+			{ id: 847, name: "คามาสึโจ", gen: 8, isLegendary: false },
+			{ id: 848, name: "เอเลซัน", gen: 8, isLegendary: false },
+			{ id: 849, name: "สตรินเดอร์", gen: 8, isLegendary: false },
+			{ id: 850, name: "ยาคุเดะ", gen: 8, isLegendary: false },
+			{ id: 851, name: "มารุยาคุเดะ", gen: 8, isLegendary: false },
+			{ id: 852, name: "ทาทักโกะ", gen: 8, isLegendary: false },
+			{ id: 853, name: "โอโทสพัส", gen: 8, isLegendary: false },
+			{ id: 854, name: "ยาบาฉะ", gen: 8, isLegendary: false },
+			{ id: 855, name: "พอตเดธ", gen: 8, isLegendary: false },
+			{ id: 856, name: "มิบริม", gen: 8, isLegendary: false },
+			{ id: 857, name: "เทบริม", gen: 8, isLegendary: false },
+			{ id: 858, name: "บริมออน", gen: 8, isLegendary: false },
+			{ id: 859, name: "เบโรบา", gen: 8, isLegendary: false },
+			{ id: 860, name: "กิโม", gen: 8, isLegendary: false },
+			{ id: 861, name: "โอลองเกะ", gen: 8, isLegendary: false },
+			{ id: 862, name: "ทาจิฟุซากุมะ", gen: 8, isLegendary: false },
+			{ id: 863, name: "เนียคิง", gen: 8, isLegendary: false },
+			{ id: 864, name: "ซานิกอน", gen: 8, isLegendary: false },
+			{ id: 865, name: "เนกิกะไนท์", gen: 8, isLegendary: false },
+			{ id: 866, name: "บาริโคโอรุ", gen: 8, isLegendary: false },
+			{ id: 867, name: "เดธบาน", gen: 8, isLegendary: false },
+			{ id: 868, name: "มาโฮมิล", gen: 8, isLegendary: false },
+			{ id: 869, name: "มาวิป", gen: 8, isLegendary: false },
+			{ id: 870, name: "ไทเรสึ", gen: 8, isLegendary: false },
+			{ id: 871, name: "บาจินอุนิ", gen: 8, isLegendary: false },
+			{ id: 872, name: "ยูกิฮามิ", gen: 8, isLegendary: false },
+			{ id: 873, name: "มอสโนว์", gen: 8, isLegendary: false },
+			{ id: 874, name: "อิชิเฮนจิน", gen: 8, isLegendary: false },
+			{ id: 875, name: "โคโอริปप्पोะ", gen: 8, isLegendary: false },
+			{ id: 876, name: "อิเอซซัน", gen: 8, isLegendary: false },
+			{ id: 877, name: "โมรุเปโกะ", gen: 8, isLegendary: false },
+			{ id: 878, name: "โซโด", gen: 8, isLegendary: false },
+			{ id: 879, name: "ไดโอโด", gen: 8, isLegendary: false },
+			{ id: 880, name: "พัจจิรากอน", gen: 8, isLegendary: false },
+			{ id: 881, name: "พัจจิรุดอน", gen: 8, isLegendary: false },
+			{ id: 882, name: "อุโอโนรากอน", gen: 8, isLegendary: false },
+			{ id: 883, name: "อุโอจิรุดอน", gen: 8, isLegendary: false },
+			{ id: 884, name: "ดิวรัลดอน", gen: 8, isLegendary: false },
+			{ id: 885, name: "โดราเมชิยะ", gen: 8, isLegendary: false },
+			{ id: 886, name: "โดรอนจิ", gen: 8, isLegendary: false },
+			{ id: 887, name: "โดราพัลท์", gen: 8, isLegendary: false },
+			{ id: 888, name: "ซาเชียน", gen: 8, isLegendary: true },
+			{ id: 889, name: "ซามาเซนตา", gen: 8, isLegendary: true },
+			{ id: 890, name: "มุเก็นไดนา", gen: 8, isLegendary: true },
+			{ id: 891, name: "ดาคุมะ", gen: 8, isLegendary: true },
+			{ id: 892, name: "วูลาออส", gen: 8, isLegendary: true },
+			{ id: 893, name: "ซารู้ด", gen: 8, isLegendary: true },
+			{ id: 894, name: "เรจิเอเลคิ", gen: 8, isLegendary: true },
+			{ id: 895, name: "เรจิดราโก", gen: 8, isLegendary: true },
+			{ id: 896, name: "บลิซซาพอส", gen: 8, isLegendary: true },
+			{ id: 897, name: "เรสพอส", gen: 8, isLegendary: true },
+			{ id: 898, name: "บัดเดร็กซ์", gen: 8, isLegendary: true },
+			{ id: 899, name: "อายาชิชิ", gen: 8, isLegendary: false },
+			{ id: 900, name: "บาซากิริ", gen: 8, isLegendary: false },
+			{ id: 901, name: "กาจิกุมะ", gen: 8, isLegendary: false },
+			{ id: 902, name: "อิไดโต", gen: 8, isLegendary: false },
+			{ id: 903, name: "โอนิวลา", gen: 8, isLegendary: false },
+			{ id: 904, name: "ฮารีมัน", gen: 8, isLegendary: false },
+			{ id: 905, name: "เลิฟโทลอส", gen: 8, isLegendary: true },
+            // Gen 9
+			{ id: 906, name: "เนียวฮะ", gen: 9, isLegendary: false },
+			{ id: 907, name: "เนียโรเต", gen: 9, isLegendary: false },
+			{ id: 908, name: "มาสเคอเนีย", gen: 9, isLegendary: false },
+			{ id: 909, name: "โฮเกเตอร์", gen: 9, isLegendary: false },
+			{ id: 910, name: "อาจิเกเตอร์", gen: 9, isLegendary: false },
+			{ id: 911, name: "ลาวด์โบน", gen: 9, isLegendary: false },
+			{ id: 912, name: "แคว็กซ์", gen: 9, isLegendary: false },
+			{ id: 913, name: "เวลคาโมะ", gen: 9, isLegendary: false },
+			{ id: 914, name: "เวนิวัล", gen: 9, isLegendary: false },
+			{ id: 915, name: "กูร์ตง", gen: 9, isLegendary: false },
+			{ id: 916, name: "เพอร์ฟูตง", gen: 9, isLegendary: false },
+			{ id: 917, name: "ทามันทูล่า", gen: 9, isLegendary: false },
+			{ id: 918, name: "วาไนเดอร์", gen: 9, isLegendary: false },
+			{ id: 919, name: "มาเมะบัตตะ", gen: 9, isLegendary: false },
+			{ id: 920, name: "เอ็กซ์เลก", gen: 9, isLegendary: false },
+			{ id: 921, name: "พาโม", gen: 9, isLegendary: false },
+			{ id: 922, name: "พาม็อต", gen: 9, isLegendary: false },
+			{ id: 923, name: "เพอร์ม็อต", gen: 9, isLegendary: false },
+			{ id: 924, name: "วักคาเนซูมิ", gen: 9, isLegendary: false },
+			{ id: 925, name: "อิกคาเนซูมิ", gen: 9, isLegendary: false },
+			{ id: 926, name: "พาปิม็อตจิ", gen: 9, isLegendary: false },
+			{ id: 927, name: "บัลซ์เซล", gen: 9, isLegendary: false },
+			{ id: 928, name: "มินีฟ", gen: 9, isLegendary: false },
+			{ id: 929, name: "โอลีเนียว", gen: 9, isLegendary: false },
+			{ id: 930, name: "โอลีวา", gen: 9, isLegendary: false },
+			{ id: 931, name: "อิคิริงโกะ", gen: 9, isLegendary: false },
+			{ id: 932, name: "โคจีโอ", gen: 9, isLegendary: false },
+			{ id: 933, name: "จีโอซึมู", gen: 9, isLegendary: false },
+			{ id: 934, name: "เคียวจีโอน", gen: 9, isLegendary: false },
+			{ id: 935, name: "คาร์โบ", gen: 9, isLegendary: false },
+			{ id: 936, name: "กุเร็นอาร์มา", gen: 9, isLegendary: false },
+			{ id: 937, name: "โซเบลดส์", gen: 9, isLegendary: false },
+			{ id: 938, name: "ซุพีคา", gen: 9, isLegendary: false },
+			{ id: 939, name: "ฮาราบารี", gen: 9, isLegendary: false },
+			{ id: 940, name: "ไคเด็น", gen: 9, isLegendary: false },
+			{ id: 941, name: "ไทไคเด็น", gen: 9, isLegendary: false },
+			{ id: 942, name: "โอราทิฟ", gen: 9, isLegendary: false },
+			{ id: 943, name: "มาฟีทิฟ", gen: 9, isLegendary: false },
+			{ id: 944, name: "ชิรุชูลู", gen: 9, isLegendary: false },
+			{ id: 945, name: "ทากิงกูลู", gen: 9, isLegendary: false },
+			{ id: 946, name: "อาโนะคุสะ", gen: 9, isLegendary: false },
+			{ id: 947, name: "อาโนะโฮรากุสะ", gen: 9, isLegendary: false },
+			{ id: 948, name: "โนโนะคุราเกะ", gen: 9, isLegendary: false },
+			{ id: 949, name: "ริคุคุราเกะ", gen: 9, isLegendary: false },
+			{ id: 950, name: "กาเคกานิ", gen: 9, isLegendary: false },
+			{ id: 951, name: "แคปไซจิ", gen: 9, isLegendary: false },
+			{ id: 952, name: "สโกวิลเลิน", gen: 9, isLegendary: false },
+			{ id: 953, name: "ชิกาโรโค", gen: 9, isLegendary: false },
+			{ id: 954, name: "เบราคาสุ", gen: 9, isLegendary: false },
+			{ id: 955, name: "ฮิราฮินะ", gen: 9, isLegendary: false },
+			{ id: 956, name: "เควสพัตรา", gen: 9, isLegendary: false },
+			{ id: 957, name: "คานุจัง", gen: 9, isLegendary: false },
+			{ id: 958, name: "นาคานุจัง", gen: 9, isLegendary: false },
+			{ id: 959, name: "เดคานุจัง", gen: 9, isLegendary: false },
+			{ id: 960, name: "อุมิดิกดา", gen: 9, isLegendary: false },
+			{ id: 961, name: "อุมิทริโอ", gen: 9, isLegendary: false },
+			{ id: 962, name: "โอโตชิโดริ", gen: 9, isLegendary: false },
+			{ id: 963, name: "นามิอิรุกะ", gen: 9, isLegendary: false },
+			{ id: 964, name: "อิรุกะแมน", gen: 9, isLegendary: false },
+			{ id: 965, name: "โบรรอน", gen: 9, isLegendary: false },
+			{ id: 966, name: "โบรโรโรม", gen: 9, isLegendary: false },
+			{ id: 967, name: "โมโตโทคาเงะ", gen: 9, isLegendary: false },
+			{ id: 968, name: "มิมิซึซึ", gen: 9, isLegendary: false },
+			{ id: 969, name: "คิราเมะ", gen: 9, isLegendary: false },
+			{ id: 970, name: "คิราฟลอร์", gen: 9, isLegendary: false },
+			{ id: 971, name: "โบจิ", gen: 9, isLegendary: false },
+			{ id: 972, name: "ฮากาด็อก", gen: 9, isLegendary: false },
+			{ id: 973, name: "คลามิงโก้", gen: 9, isLegendary: false },
+			{ id: 974, name: "อารุคุจิระ", gen: 9, isLegendary: false },
+			{ id: 975, name: "ฮัลค์จิระ", gen: 9, isLegendary: false },
+			{ id: 976, name: "มิกาลูซา", gen: 9, isLegendary: false },
+			{ id: 977, name: "เฮย์รัชเชอร์", gen: 9, isLegendary: false },
+			{ id: 978, name: "ชาริทัตสึ", gen: 9, isLegendary: false },
+			{ id: 979, name: "โคโนะโยซารุ", gen: 9, isLegendary: false },
+			{ id: 980, name: "โดะโอ", gen: 9, isLegendary: false },
+			{ id: 981, name: "ริกิคิริน", gen: 9, isLegendary: false },
+			{ id: 982, name: "โนโกก็อจจิ", gen: 9, isLegendary: false },
+			{ id: 983, name: "โดโดเกซัน", gen: 9, isLegendary: false },
+			{ id: 984, name: "งายักษ์", gen: 9, isLegendary: false },
+			{ id: 985, name: "หางตะเบ็ง", gen: 9, isLegendary: false },
+			{ id: 986, name: "เห็ดคลุ้มคลั่ง", gen: 9, isLegendary: false },
+			{ id: 987, name: "เกศากระพือ", gen: 9, isLegendary: false },
+			{ id: 988, name: "ปีกไล้พสุธา", gen: 9, isLegendary: false },
+			{ id: 989, name: "ขนทราย", gen: 9, isLegendary: false },
+			{ id: 990, name: "รอยล้อเหล็ก", gen: 9, isLegendary: false },
+			{ id: 991, name: "ถุงเหล็ก", gen: 9, isLegendary: false },
+			{ id: 992, name: "มือเหล็ก", gen: 9, isLegendary: false },
+			{ id: 993, name: "คอเหล็ก", gen: 9, isLegendary: false },
+			{ id: 994, name: "แมลงมอธเหล็ก", gen: 9, isLegendary: false },
+			{ id: 995, name: "หนามเหล็ก", gen: 9, isLegendary: false },
+			{ id: 996, name: "เซบิเอะ", gen: 9, isLegendary: false },
+			{ id: 997, name: "เซโกล", gen: 9, isLegendary: false },
+			{ id: 998, name: "เซเกลฟ", gen: 9, isLegendary: false },
+			{ id: 999, name: "คอลเลคเรย์", gen: 9, isLegendary: false },
+			{ id: 1000, name: "ซาร์ฟโก", gen: 9, isLegendary: false },
+			{ id: 1001, name: "ฉงเจี่ยน", gen: 9, isLegendary: true },
+			{ id: 1002, name: "เป้าเจี้ยน", gen: 9, isLegendary: true },
+			{ id: 1003, name: "ติ่งลู่", gen: 9, isLegendary: true },
+			{ id: 1004, name: "อวี้อวี๋", gen: 9, isLegendary: true },
+			{ id: 1005, name: "จันทร์คำรน", gen: 9, isLegendary: false },
+			{ id: 1006, name: "นักรบเหล็ก", gen: 9, isLegendary: false },
+			{ id: 1007, name: "โคไรดอน", gen: 9, isLegendary: true },
+			{ id: 1008, name: "มิไรดอน", gen: 9, isLegendary: true },
+			{ id: 1009, name: "คลื่นน้ำกระเผื่อม", gen: 9, isLegendary: true },
+			{ id: 1010, name: "ใบด่างเหล็ก", gen: 9, isLegendary: true },
+			{ id: 1011, name: "คามิชชู", gen: 9, isLegendary: false },
+			{ id: 1012, name: "ฉะเดธ", gen: 9, isLegendary: false },
+			{ id: 1013, name: "ยาบะโซฉะ", gen: 9, isLegendary: false },
+			{ id: 1014, name: "อีเนะอินุ", gen: 9, isLegendary: true },
+			{ id: 1015, name: "มาชิมาชิระ", gen: 9, isLegendary: true },
+			{ id: 1016, name: "คิจิคิกิซุ", gen: 9, isLegendary: true },
+			{ id: 1017, name: "โอกาปอง", gen: 9, isLegendary: true },
+			{ id: 1018, name: "บริดูรัส", gen: 9, isLegendary: false },
+			{ id: 1019, name: "คามิสึโอโรจิ", gen: 9, isLegendary: false },
+			{ id: 1020, name: "เพลิงทะลวง", gen: 9, isLegendary: true },
+			{ id: 1021, name: "ฟ้าคะนองคลั่ง", gen: 9, isLegendary: true },
+			{ id: 1022, name: "ศิลาเหล็ก", gen: 9, isLegendary: true },
+			{ id: 1023, name: "หัวเหล็ก", gen: 9, isLegendary: true },
+			{ id: 1024, name: "เทราปากอส", gen: 9, isLegendary: true },
+			{ id: 1025, name: "โมโมวาโร่", gen: 9, isLegendary: true }
+        ];
+
+        const genFilter = document.getElementById('genFilter');
+        const idStart = document.getElementById('idStart');
+        const idEnd = document.getElementById('idEnd');
+        const typeFilter = document.getElementById('typeFilter');
+        const pokemonContainer = document.getElementById('pokemonContainer');
+        const matchCount = document.getElementById('matchCount');
+        const copyTextArea = document.getElementById('copyTextArea');
+        const copyBtn = document.getElementById('copyBtn');
+        const toastMsg = document.getElementById('toastMsg');
+        const separatorRadios = document.getElementsByName('separator');
+        const searchInput = document.getElementById('searchInput');
+        const resetBtn = document.getElementById('resetBtn');
+        const btnText = document.getElementById('btnText');
+
+        let filteredPokemonNames = [];
+        let selectedNames = new Set();
+
+        function updateList() {
+            const selectedGen = genFilter.value;
+            const startVal = parseInt(idStart.value) || 1;
+            const endVal = parseInt(idEnd.value) || 9999;
+            const selectedType = typeFilter.value;
+            const searchQuery = searchInput.value.trim().toLowerCase();
+
+            const filteredList = pokemonDatabase.filter(poke => {
+                const matchGen = selectedGen === 'all' || poke.gen === parseInt(selectedGen);
+                const matchID = poke.id >= startVal && poke.id <= endVal;
+                const matchSearch = searchQuery === '' || poke.name.toLowerCase().includes(searchQuery);
+                let matchType = true;
+                if (selectedType === 'legendary') matchType = poke.isLegendary === true;
+                if (selectedType === 'normal') matchType = poke.isLegendary === false;
+                return matchGen && matchID && matchType && matchSearch;
+            });
+
+            matchCount.textContent = filteredList.length;
+            pokemonContainer.innerHTML = '';
+
+            if (filteredList.length === 0) {
+                pokemonContainer.innerHTML = `<div class="text-slate-400 text-center py-8 text-sm">❌ ไม่พบข้อมูลโปเกมอนที่ตรงตามเงื่อนไข ลองปรับตัวกรองดูใหม่</div>`;
+            } else {
+                filteredList.forEach(poke => {
+                    const isSelected = selectedNames.has(poke.name);
+                    const pokeEl = document.createElement('div');
+                    pokeEl.setAttribute('role', 'button');
+                    pokeEl.setAttribute('tabindex', '0');
+                    pokeEl.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+                    pokeEl.className = `flex items-center justify-between p-2.5 border rounded-lg shadow-sm text-sm cursor-pointer transition
+                        ${isSelected ? 'bg-red-50 border-red-400 ring-1 ring-red-200' : 'bg-white border-slate-200 hover:border-red-300'}`;
+
+                    const badge = poke.isLegendary
+                        ? `<span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded">ตำนาน</span>`
+                        : `<span class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded">Gen ${poke.gen}</span>`;
+
+                    pokeEl.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-slate-400 font-semibold">#${String(poke.id).padStart(3, '0')}</span>
+                            <span class="text-slate-700 font-medium">${poke.name}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            ${isSelected ? '<span class="text-red-500 text-xs">✓</span>' : ''}
+                            ${badge}
+                        </div>
+                    `;
+
+                    const toggleSelection = () => {
+                        if (selectedNames.has(poke.name)) {
+                            selectedNames.delete(poke.name);
+                        } else {
+                            selectedNames.add(poke.name);
+                        }
+                        updateList();
+                    };
+
+                    pokeEl.addEventListener('click', toggleSelection);
+                    pokeEl.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleSelection();
+                        }
+                    });
+
+                    pokemonContainer.appendChild(pokeEl);
+                });
+            }
+
+            filteredPokemonNames = selectedNames.size > 0 ? [...selectedNames] : filteredList.map(p => p.name);
+            updateTextBox();
+        }
+
+        function updateTextBox() {
+            const selectedSeparator = Array.from(separatorRadios).find(r => r.checked).value;
+            if (filteredPokemonNames.length === 0) {
+                copyTextArea.value = '';
+                copyBtn.disabled = true;
+                btnText.textContent = 'คัดลอกรายชื่อทั้งหมด';
+            } else {
+                copyBtn.disabled = false;
+                btnText.textContent = `คัดลอก (${filteredPokemonNames.length} ชื่อ)`;
+                if (selectedSeparator === 'comma') {
+                    copyTextArea.value = filteredPokemonNames.join(', ');
+                } else if (selectedSeparator === 'pipe') {
+                    copyTextArea.value = filteredPokemonNames.join('|');
+                } else if (selectedSeparator === 'tab') {
+                    copyTextArea.value = filteredPokemonNames.join('\t');
+                } else if (selectedSeparator === 'quotes') {
+                    copyTextArea.value = filteredPokemonNames.map(n => `"${n}"`).join(', ');
+                } else {
+                    copyTextArea.value = filteredPokemonNames.join('\n');
+                }
+            }
+        }
+
+        genFilter.addEventListener('change', updateList);
+        idStart.addEventListener('input', updateList);
+        idEnd.addEventListener('input', updateList);
+        typeFilter.addEventListener('change', updateList);
+        searchInput.addEventListener('input', updateList);
+        separatorRadios.forEach(radio => radio.addEventListener('change', updateTextBox));
+
+        resetBtn.addEventListener('click', () => {
+            genFilter.value = 'all';
+            idStart.value = '';
+            idEnd.value = '';
+            typeFilter.value = 'all';
+            searchInput.value = '';
+            selectedNames.clear();
+            updateList();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (copyTextArea.value.trim() === '') return;
+
+            const showSuccess = () => {
+                toastMsg.classList.remove('hidden');
+                const originalText = btnText.textContent;
+                btnText.textContent = 'คัดลอกสำเร็จแล้ว!';
+                copyBtn.classList.replace('bg-red-600', 'bg-emerald-600');
+
+                setTimeout(() => {
+                    toastMsg.classList.add('hidden');
+                    btnText.textContent = originalText;
+                    copyBtn.classList.replace('bg-emerald-600', 'bg-red-600');
+                }, 2000);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(copyTextArea.value).then(showSuccess).catch(err => {
+                    alert('เกิดข้อผิดพลาดในการคัดลอก: ' + err);
+                });
+            } else {
+                try {
+                    copyTextArea.removeAttribute('readonly');
+                    copyTextArea.select();
+                    document.execCommand('copy');
+                    copyTextArea.setAttribute('readonly', true);
+                    showSuccess();
+                } catch (err) {
+                    alert('เบราว์เซอร์นี้ไม่รองรับการคัดลอกอัตโนมัติ กรุณาคัดลอกข้อความด้วยตนเอง');
+                }
+            }
+        });
+
+        updateList();
+    </script>
+</body>
+</html>
