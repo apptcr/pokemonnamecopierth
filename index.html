@@ -1,172 +1,386 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายชื่อโปเกมอนสำหรับใช้คัดลอก by Namjit</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans Thai', sans-serif;
-        }
-        .font-pixel {
-            font-family: 'Press Start 2P', cursive;
-        }
-        .status-dot {
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.25) inset, 0 0 6px currentColor;
-        }
-        #pokemonContainer::-webkit-scrollbar { width: 8px; }
-        #pokemonContainer::-webkit-scrollbar-track { background: transparent; }
-        #pokemonContainer::-webkit-scrollbar-thumb { background: #fca5a5; border-radius: 8px; }
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
-        button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focus-visible {
-            outline: 3px solid #ef4444;
-            outline-offset: 2px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEX-COPY — รายชื่อโปเกมอนสำหรับใช้คัดลอก by Namjit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --shell:#C41E3A;
+    --shell-dark:#8E1428;
+    --shell-darker:#5E0D1B;
+    --screen:#152219;
+    --screen-line:#1E3126;
+    --phosphor:#8FE3A8;
+    --phosphor-dim:#4F7A5C;
+    --cream:#ECE7D8;
+    --cream-dark:#D8D0B8;
+    --ink:#262620;
+    --ink-soft:#5C5A4E;
+    --amber:#F4B400;
+    --steel:#8B9088;
+    --steel-dark:#585D57;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--shell-darker);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,0.04), transparent 40%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px, transparent 1px, transparent 3px);
+    color:var(--ink);
+    font-family:'Chakra Petch', sans-serif;
+    min-height:100vh;
+    padding:24px 14px 48px;
+  }
+  .pixel{font-family:'Press Start 2P', monospace;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  button:focus-visible, input:focus-visible, select:focus-visible, [tabindex]:focus-visible{
+    outline:3px solid var(--amber);
+    outline-offset:2px;
+  }
+
+  .device{
+    max-width:920px;
+    margin:0 auto;
+    background:var(--shell);
+    border:3px solid var(--shell-darker);
+    border-radius:18px;
+    box-shadow:0 10px 0 var(--shell-darker), 0 14px 24px rgba(0,0,0,0.45);
+    padding:18px;
+  }
+
+  .screw{
+    width:12px;height:12px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #cfd3cf, var(--steel-dark) 70%);
+    border:1px solid var(--steel-dark);
+    flex-shrink:0;
+  }
+
+  .top-row{
+    display:flex; align-items:center; gap:14px;
+    padding:6px 4px 16px;
+  }
+
+  .lens{
+    position:relative;
+    width:52px; height:52px; border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #d9fbe4 0%, var(--phosphor) 32%, #1f6b45 78%, #0c3722 100%);
+    border:3px solid var(--cream);
+    box-shadow:0 0 0 3px var(--shell-darker), inset 0 0 6px rgba(0,0,0,0.35);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .lens-count{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:15px;
+    color:#0c3722;
+    text-shadow:0 1px 0 rgba(255,255,255,0.35);
+  }
+
+  .title-block{flex:1; min-width:0;}
+  .eyebrow{
+    color:#FDE0E4; font-size:10px; letter-spacing:2px;
+  }
+  .title{
+    color:#fff; font-weight:700; font-size:18px; margin-top:4px;
+    letter-spacing:0.3px;
+  }
+
+  .indicator-strip{display:flex; gap:6px; flex-shrink:0;}
+  .ind-dot{width:8px;height:8px;border-radius:50%; background:var(--shell-darker); box-shadow:inset 0 0 0 1px rgba(255,255,255,0.15);}
+  .ind-dot.on{background:var(--amber); box-shadow:0 0 4px var(--amber);}
+
+  .screen-panel{
+    background:var(--screen);
+    border:3px solid var(--shell-darker);
+    border-radius:10px;
+    padding:16px;
+    box-shadow:inset 0 2px 6px rgba(0,0,0,0.6);
+    background-image:repeating-linear-gradient(0deg, rgba(143,227,168,0.03) 0px, rgba(143,227,168,0.03) 1px, transparent 1px, transparent 3px);
+  }
+
+  .panel-label{
+    color:var(--phosphor); font-size:10px; letter-spacing:2px; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .panel-label::before{content:'>'; color:var(--amber);}
+
+  .filter-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  }
+  @media (max-width:640px){ .filter-grid{grid-template-columns:1fr;} }
+
+  .field-label{
+    display:block; color:var(--phosphor-dim); font-size:11px; margin-bottom:5px; letter-spacing:0.5px;
+  }
+
+  .field{
+    width:100%;
+    background:#0E1712;
+    border:2px solid var(--screen-line);
+    color:var(--phosphor);
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    padding:9px 10px;
+    border-radius:4px;
+    outline:none;
+  }
+  .field::placeholder{color:var(--phosphor-dim);}
+  .field:focus{border-color:var(--phosphor);}
+  select.field{appearance:none; -webkit-appearance:none;
+    background-image:linear-gradient(45deg, transparent 50%, var(--phosphor) 50%), linear-gradient(135deg, var(--phosphor) 50%, transparent 50%);
+    background-position:calc(100% - 16px) center, calc(100% - 11px) center;
+    background-size:5px 5px, 5px 5px;
+    background-repeat:no-repeat;
+  }
+
+  .range-row{display:flex; align-items:center; gap:8px;}
+  .range-row .field{text-align:center;}
+  .range-dash{color:var(--phosphor-dim); font-size:12px; flex-shrink:0;}
+
+  .reset-link{
+    background:none; border:none; cursor:pointer;
+    color:var(--amber); font-family:'Chakra Petch', sans-serif; font-weight:600; font-size:12px;
+    padding:4px 2px; text-decoration:underline; text-underline-offset:3px;
+  }
+  .reset-link:hover{color:#ffd35c;}
+
+  .filter-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+
+  .content-grid{
+    display:grid; grid-template-columns:1.5fr 1fr; gap:14px; margin-top:14px;
+  }
+  @media (max-width:760px){ .content-grid{grid-template-columns:1fr;} }
+
+  .list-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .count-tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:#0c3722;
+    background:var(--phosphor); padding:2px 8px; border-radius:3px; font-weight:600;
+  }
+  .hint{color:var(--phosphor-dim); font-size:10.5px;}
+
+  #pokemonContainer{
+    height:340px; overflow-y:auto;
+    display:flex; flex-direction:column; gap:6px;
+    padding-right:4px;
+  }
+  #pokemonContainer::-webkit-scrollbar{width:8px;}
+  #pokemonContainer::-webkit-scrollbar-track{background:transparent;}
+  #pokemonContainer::-webkit-scrollbar-thumb{background:var(--screen-line); border-radius:4px;}
+
+  .poke-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:9px 10px;
+    border:1px solid var(--screen-line);
+    border-radius:4px;
+    background:#0E1712;
+    cursor:pointer;
+    transition:border-color 0.1s, background 0.1s;
+  }
+  .poke-row:hover{border-color:var(--phosphor-dim);}
+  .poke-row.selected{
+    background:#12241A;
+    border-color:var(--amber);
+    box-shadow:inset 0 0 0 1px var(--amber);
+  }
+  .poke-id{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--phosphor-dim); margin-right:10px;}
+  .poke-name{color:var(--phosphor); font-weight:600; font-size:13.5px;}
+  .poke-left{display:flex; align-items:center; min-width:0;}
+  .poke-right{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .check{color:var(--amber); font-size:12px; font-weight:700;}
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:9.5px; padding:2px 6px; border-radius:3px;
+    letter-spacing:0.5px;
+  }
+  .tag.legend{background:var(--amber); color:#4A2E00;}
+  .tag.normal{background:var(--screen-line); color:var(--phosphor-dim);}
+  .empty-row{color:var(--phosphor-dim); text-align:center; padding:40px 10px; font-size:13px;}
+
+  .output-col{display:flex; flex-direction:column;}
+
+  .sep-row{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .sep-btn{
+    background:#0E1712; border:1px solid var(--screen-line); color:var(--phosphor-dim);
+    font-family:'Chakra Petch', sans-serif; font-size:11px; font-weight:600;
+    padding:6px 10px; border-radius:4px; cursor:pointer;
+  }
+  .sep-btn.active{background:var(--phosphor); color:#0c3722; border-color:var(--phosphor);}
+
+  textarea#copyTextArea{
+    width:100%; height:180px; resize:none;
+    background:#0E1712; border:2px solid var(--screen-line); border-radius:4px;
+    color:var(--phosphor); font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    padding:10px; outline:none;
+  }
+  textarea#copyTextArea:focus{border-color:var(--phosphor);}
+
+  .bottom-cluster{
+    background:var(--cream);
+    border:3px solid var(--shell-darker);
+    border-top:none;
+    border-radius:0 0 10px 10px;
+    margin-top:-4px;
+    padding:16px 18px;
+    display:flex; align-items:center; gap:16px;
+  }
+  @media (max-width:640px){ .bottom-cluster{flex-direction:column; align-items:stretch;} }
+
+  .dpad{
+    display:grid; grid-template-columns:repeat(3, 18px); grid-template-rows:repeat(3, 18px); gap:2px;
+    flex-shrink:0;
+  }
+  .dpad span{background:var(--steel-dark); border-radius:2px;}
+  .dpad span.mid{background:transparent;}
+
+  .actuator{
+    flex:1;
+    background:var(--shell);
+    color:#fff;
+    border:none;
+    border-bottom:5px solid var(--shell-darker);
+    border-radius:8px;
+    font-family:'Chakra Petch', sans-serif; font-weight:700; font-size:14.5px;
+    padding:13px 18px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:transform 0.05s;
+  }
+  .actuator:active{transform:translateY(3px); border-bottom-width:2px;}
+  .actuator:disabled{opacity:0.4; cursor:not-allowed;}
+  .actuator.done{background:#1D9E75; border-bottom-color:#0F6E56;}
+
+  .toast{
+    color:#0F6E56; font-size:12px; font-weight:700; margin-top:8px; text-align:center;
+    visibility:hidden;
+  }
+  .toast.show{visibility:visible;}
+
+  footer.credit{
+    text-align:center; color:rgba(255,255,255,0.35); font-size:10.5px; margin-top:14px;
+    letter-spacing:0.5px;
+  }
+</style>
 </head>
-<body class="bg-rose-50 text-slate-800 min-h-screen">
+<body>
 
-    <div class="max-w-5xl mx-auto px-4 py-6 md:py-10">
-
-        <div class="rounded-3xl bg-white shadow-xl ring-1 ring-rose-100 overflow-hidden">
-            <header class="bg-gradient-to-r from-red-600 to-red-500 px-5 md:px-8 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <span class="status-dot inline-block h-4 w-4 rounded-full bg-sky-300 text-sky-300"></span>
-                    <span class="status-dot inline-block h-2.5 w-2.5 rounded-full bg-amber-300 text-amber-300"></span>
-                    <span class="status-dot inline-block h-2.5 w-2.5 rounded-full bg-emerald-300 text-emerald-300"></span>
-                    <h1 class="text-white font-bold text-lg md:text-2xl ml-2 flex items-center gap-2">รายชื่อโปเกมอนสำหรับใช้คัดลอก</h1>
-                </div>
-                <span class="font-pixel text-[10px] md:text-xs text-white/80 hidden sm:inline">DEX</span>
-            </header>
-
-            <div class="p-4 md:p-8">
-
-                <section class="bg-rose-50/60 rounded-2xl border border-rose-100 p-5 md:p-6 mb-6">
-                    <div class="flex items-center justify-between gap-2 mb-4">
-                        <h2 class="text-base md:text-lg font-semibold text-slate-700 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 8.293A1 1 0 013 7.586V4z" /></svg>
-                            ตัวกรองข้อมูล (Filters)
-                        </h2>
-                        <button id="resetBtn" type="button" class="text-xs md:text-sm font-medium text-red-600 hover:text-red-700 hover:underline transition px-2 py-1 rounded-md">
-                            ล้างตัวกรองทั้งหมด
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="genFilter" class="block text-sm font-medium text-slate-600 mb-1">เลือก Generation</label>
-                            <select id="genFilter" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
-                                <option value="all">ทั้งหมด (Gen 1 - 9)</option>
-                                <option value="1">Gen 1 (Kanto)</option>
-                                <option value="2">Gen 2 (Johto)</option>
-                                <option value="3">Gen 3 (Hoenn)</option>
-                                <option value="4">Gen 4 (Sinnoh)</option>
-                                <option value="5">Gen 5 (Unova)</option>
-                                <option value="6">Gen 6 (Kalos)</option>
-                                <option value="7">Gen 7 (Alola)</option>
-                                <option value="8">Gen 8 (Galar)</option>
-                                <option value="9">Gen 9 (Paldea)</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="searchInput" class="block text-sm font-medium text-slate-600 mb-1">ค้นหาชื่อ</label>
-                            <input type="text" id="searchInput" placeholder="พิมพ์ชื่อโปเกมอน..."
-                                class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
-                        </div>
-
-                        <div>
-                            <span class="block text-sm font-medium text-slate-600 mb-1">ช่วง ID (เลขเริ่มต้น - สิ้นสุด)</span>
-                            <div class="flex items-center gap-2">
-                                <label class="sr-only" for="idStart">ID เริ่มต้น</label>
-                                <input type="number" id="idStart" placeholder="1" min="1" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition text-center">
-                                <span class="text-slate-400">ถึง</span>
-                                <label class="sr-only" for="idEnd">ID สิ้นสุด</label>
-                                <input type="number" id="idEnd" placeholder="1025" min="1" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition text-center">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="typeFilter" class="block text-sm font-medium text-slate-600 mb-1">ประเภทโปเกมอน</label>
-                            <select id="typeFilter" class="w-full bg-white border border-slate-300 text-slate-700 rounded-lg p-2.5 focus:ring-2 focus:ring-red-400 focus:border-red-400 outline-none transition">
-                                <option value="all">ทั้งหมด</option>
-                                <option value="legendary">เฉพาะระดับตำนาน (Legendary / Mythical)</option>
-                                <option value="normal">เฉพาะโปเกมอนทั่วไป</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                    <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 flex flex-col max-h-[520px]">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-semibold text-slate-700 flex items-center gap-2">
-                                รายชื่อที่ตรงตามเงื่อนไข
-                                <span id="matchCount" class="bg-red-100 text-red-700 text-xs font-bold px-2.5 py-0.5 rounded-full">0</span>
-                            </h3>
-                            <span class="text-xs text-slate-400 hidden sm:inline">คลิกที่รายชื่อเพื่อเลือก/ยกเลิก</span>
-                        </div>
-
-                        <div id="pokemonContainer" class="overflow-y-auto space-y-2 flex-1 pr-2 border border-rose-100 p-2 rounded-lg bg-rose-50/40"></div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 flex flex-col justify-between max-h-[520px]">
-                        <div>
-                            <h3 class="font-semibold text-slate-700 mb-3">กล่องเตรียมคัดลอก</h3>
-                            <p class="text-xs text-slate-400 mb-4">ชื่อทั้งหมดจะถูกจัดรูปแบบในกล่องนี้อัตโนมัติ คุณสามารถเลือกคั่นด้วยเครื่องหมายจุลภาค (,) หรือเว้นบรรทัดได้</p>
-
-                            <div class="mb-4">
-                                <label class="block text-xs font-medium text-slate-500 mb-1">รูปแบบการคั่นชื่อ</label>
-                                <div class="flex flex-wrap gap-x-4 gap-y-2">
-                                    <label class="inline-flex items-center text-sm text-slate-600">
-                                        <input type="radio" name="separator" value="newline" checked class="text-red-600 focus:ring-red-400">
-                                        <span class="ml-2">ขึ้นบรรทัดใหม่</span>
-                                    </label>
-                                    <label class="inline-flex items-center text-sm text-slate-600">
-                                        <input type="radio" name="separator" value="comma" class="text-red-600 focus:ring-red-400">
-                                        <span class="ml-2">คั่นด้วยจุลภาค (, )</span>
-                                    </label>
-                                    <label class="inline-flex items-center text-sm text-slate-600">
-                                        <input type="radio" name="separator" value="pipe" class="text-red-600 focus:ring-red-400">
-                                        <span class="ml-2">คั่นด้วย Pipe ( | )</span>
-                                    </label>
-                                    <label class="inline-flex items-center text-sm text-slate-600">
-                                        <input type="radio" name="separator" value="tab" class="text-red-600 focus:ring-red-400">
-                                        <span class="ml-2">คั่นด้วย Tab</span>
-                                    </label>
-                                    <label class="inline-flex items-center text-sm text-slate-600">
-                                        <input type="radio" name="separator" value="quotes" class="text-red-600 focus:ring-red-400">
-                                        <span class="ml-2">ใส่ Quotes ( "ชื่อ" )</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <textarea id="copyTextArea" readonly class="w-full h-48 bg-rose-50/40 border border-rose-100 rounded-lg p-3 text-sm text-slate-700 focus:outline-none resize-none" placeholder="ไม่มีรายชื่อที่จะคัดลอก..."></textarea>
-                        </div>
-
-                        <div class="mt-4">
-                            <button id="copyBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-2 rounded-xl shadow-sm transition flex items-center justify-center gap-2 active:scale-[0.98] text-sm disabled:opacity-50 disabled:cursor-not-allowed">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" /></svg>
-                                <span id="btnText">คัดลอกรายชื่อทั้งหมด</span>
-                            </button>
-                            <p id="toastMsg" class="text-center text-emerald-600 text-sm font-medium mt-2 hidden animate-pulse" role="status">✓ คัดลอกลง คลิปบอร์ด แล้ว!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <p class="text-center text-xs text-slate-400 mt-4">ข้อมูลโปเกมอนในตัวอย่างนี้เป็นข้อมูลจำลอง — เพิ่ม/แก้ไขรายชื่อได้ใน <code class="bg-rose-100 text-rose-600 px-1 rounded">pokemonDatabase</code></p>-->
+  <div class="device">
+    <div class="top-row">
+      <div class="screw"></div>
+      <div class="lens" id="lens"><span class="lens-count" id="matchCount">0</span></div>
+      <div class="title-block">
+        <div class="eyebrow pixel">DEX-COPY TERMINAL</div>
+        <div class="title">รายชื่อโปเกมอนสำหรับใช้คัดลอก</div>
+      </div>
+      <div class="indicator-strip">
+        <span class="ind-dot on"></span>
+        <span class="ind-dot"></span>
+        <span class="ind-dot"></span>
+      </div>
+      <div class="screw"></div>
     </div>
 
-    <script>
-        const pokemonDatabase = [
+    <div class="screen-panel">
+      <div class="filter-head">
+        <div class="panel-label">FILTER INPUT</div>
+        <button id="resetBtn" type="button" class="reset-link">ล้างตัวกรองทั้งหมด</button>
+      </div>
+
+      <div class="filter-grid">
+        <div>
+          <label for="genFilter" class="field-label">GENERATION</label>
+          <select id="genFilter" class="field">
+            <option value="all">ทั้งหมด (Gen 1 - 9)</option>
+            <option value="1">Gen 1 (Kanto)</option>
+            <option value="2">Gen 2 (Johto)</option>
+            <option value="3">Gen 3 (Hoenn)</option>
+            <option value="4">Gen 4 (Sinnoh)</option>
+            <option value="5">Gen 5 (Unova)</option>
+            <option value="6">Gen 6 (Kalos)</option>
+            <option value="7">Gen 7 (Alola)</option>
+            <option value="8">Gen 8 (Galar)</option>
+            <option value="9">Gen 9 (Paldea)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="searchInput" class="field-label">SEARCH NAME</label>
+          <input type="text" id="searchInput" placeholder="พิมพ์ชื่อโปเกมอน..." class="field">
+        </div>
+
+        <div>
+          <span class="field-label">ID RANGE</span>
+          <div class="range-row">
+            <label class="sr-only" for="idStart" style="display:none">ID เริ่มต้น</label>
+            <input type="number" id="idStart" placeholder="1" min="1" class="field">
+            <span class="range-dash">—</span>
+            <label class="sr-only" for="idEnd" style="display:none">ID สิ้นสุด</label>
+            <input type="number" id="idEnd" placeholder="1025" min="1" class="field">
+          </div>
+        </div>
+
+        <div>
+          <label for="typeFilter" class="field-label">CLASS</label>
+          <select id="typeFilter" class="field">
+            <option value="all">ทั้งหมด</option>
+            <option value="legendary">เฉพาะระดับตำนาน (Legendary / Mythical)</option>
+            <option value="normal">เฉพาะโปเกมอนทั่วไป</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="screen-panel">
+        <div class="list-head">
+          <div class="panel-label" style="margin-bottom:0">RESULTS</div>
+          <span class="hint">คลิกเพื่อเลือก/ยกเลิก</span>
+        </div>
+        <div id="pokemonContainer"></div>
+      </div>
+
+      <div class="screen-panel output-col">
+        <div class="panel-label">OUTPUT FORMAT</div>
+        <div class="sep-row" id="sepRow">
+          <button type="button" class="sep-btn active" data-sep="newline">บรรทัดใหม่</button>
+          <button type="button" class="sep-btn" data-sep="comma">คอมมา</button>
+          <button type="button" class="sep-btn" data-sep="pipe">Pipe |</button>
+          <button type="button" class="sep-btn" data-sep="tab">Tab</button>
+          <button type="button" class="sep-btn" data-sep="quotes">"Quotes"</button>
+        </div>
+        <textarea id="copyTextArea" readonly placeholder="ไม่มีรายชื่อที่จะคัดลอก..."></textarea>
+      </div>
+    </div>
+
+    <div class="bottom-cluster">
+      <div class="dpad">
+        <span></span><span></span><span></span>
+        <span></span><span class="mid"></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+      <div style="flex:1">
+        <button id="copyBtn" class="actuator">
+          <span id="btnText">คัดลอกรายชื่อทั้งหมด</span>
+        </button>
+        <p id="toastMsg" class="toast" role="status">คัดลอกลงคลิปบอร์ดแล้ว</p>
+      </div>
+    </div>
+
+    <footer class="credit pixel">by Namjit</footer>
+  </div>
+
+<script>
+  const pokemonDatabase = [
             // Gen 1
 			{ id: 1, name: "ฟุชิกิดาเนะ", gen: 1, isLegendary: false },
 			{ id: 2, name: "ฟุชิกิโซ", gen: 1, isLegendary: false },
@@ -1202,171 +1416,182 @@
 			{ id: 1023, name: "หัวเหล็ก", gen: 9, isLegendary: true },
 			{ id: 1024, name: "เทราปากอส", gen: 9, isLegendary: true },
 			{ id: 1025, name: "โมโมวาโร่", gen: 9, isLegendary: true }
-        ];
+  ];
 
-        const genFilter = document.getElementById('genFilter');
-        const idStart = document.getElementById('idStart');
-        const idEnd = document.getElementById('idEnd');
-        const typeFilter = document.getElementById('typeFilter');
-        const pokemonContainer = document.getElementById('pokemonContainer');
-        const matchCount = document.getElementById('matchCount');
-        const copyTextArea = document.getElementById('copyTextArea');
-        const copyBtn = document.getElementById('copyBtn');
-        const toastMsg = document.getElementById('toastMsg');
-        const separatorRadios = document.getElementsByName('separator');
-        const searchInput = document.getElementById('searchInput');
-        const resetBtn = document.getElementById('resetBtn');
-        const btnText = document.getElementById('btnText');
+  const genFilter = document.getElementById('genFilter');
+  const idStart = document.getElementById('idStart');
+  const idEnd = document.getElementById('idEnd');
+  const typeFilter = document.getElementById('typeFilter');
+  const pokemonContainer = document.getElementById('pokemonContainer');
+  const matchCount = document.getElementById('matchCount');
+  const lens = document.getElementById('lens');
+  const copyTextArea = document.getElementById('copyTextArea');
+  const copyBtn = document.getElementById('copyBtn');
+  const toastMsg = document.getElementById('toastMsg');
+  const searchInput = document.getElementById('searchInput');
+  const resetBtn = document.getElementById('resetBtn');
+  const btnText = document.getElementById('btnText');
+  const sepButtons = document.querySelectorAll('.sep-btn');
 
-        let filteredPokemonNames = [];
-        let selectedNames = new Set();
+  let filteredPokemonNames = [];
+  let selectedNames = new Set();
+  let currentSeparator = 'newline';
 
-        function updateList() {
-            const selectedGen = genFilter.value;
-            const startVal = parseInt(idStart.value) || 1;
-            const endVal = parseInt(idEnd.value) || 9999;
-            const selectedType = typeFilter.value;
-            const searchQuery = searchInput.value.trim().toLowerCase();
+  function updateList() {
+    const selectedGen = genFilter.value;
+    const startVal = parseInt(idStart.value) || 1;
+    const endVal = parseInt(idEnd.value) || 9999;
+    const selectedType = typeFilter.value;
+    const searchQuery = searchInput.value.trim().toLowerCase();
 
-            const filteredList = pokemonDatabase.filter(poke => {
-                const matchGen = selectedGen === 'all' || poke.gen === parseInt(selectedGen);
-                const matchID = poke.id >= startVal && poke.id <= endVal;
-                const matchSearch = searchQuery === '' || poke.name.toLowerCase().includes(searchQuery);
-                let matchType = true;
-                if (selectedType === 'legendary') matchType = poke.isLegendary === true;
-                if (selectedType === 'normal') matchType = poke.isLegendary === false;
-                return matchGen && matchID && matchType && matchSearch;
-            });
+    const filteredList = pokemonDatabase.filter(poke => {
+      const matchGen = selectedGen === 'all' || poke.gen === parseInt(selectedGen);
+      const matchID = poke.id >= startVal && poke.id <= endVal;
+      const matchSearch = searchQuery === '' || poke.name.toLowerCase().includes(searchQuery);
+      let matchType = true;
+      if (selectedType === 'legendary') matchType = poke.isLegendary === true;
+      if (selectedType === 'normal') matchType = poke.isLegendary === false;
+      return matchGen && matchID && matchType && matchSearch;
+    });
 
-            matchCount.textContent = filteredList.length;
-            pokemonContainer.innerHTML = '';
+    matchCount.textContent = filteredList.length;
+    lens.style.boxShadow = selectedNames.size > 0
+      ? '0 0 0 3px var(--shell-darker), 0 0 10px 2px var(--amber)'
+      : '0 0 0 3px var(--shell-darker), inset 0 0 6px rgba(0,0,0,0.35)';
 
-            if (filteredList.length === 0) {
-                pokemonContainer.innerHTML = `<div class="text-slate-400 text-center py-8 text-sm">❌ ไม่พบข้อมูลโปเกมอนที่ตรงตามเงื่อนไข ลองปรับตัวกรองดูใหม่</div>`;
-            } else {
-                filteredList.forEach(poke => {
-                    const isSelected = selectedNames.has(poke.name);
-                    const pokeEl = document.createElement('div');
-                    pokeEl.setAttribute('role', 'button');
-                    pokeEl.setAttribute('tabindex', '0');
-                    pokeEl.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-                    pokeEl.className = `flex items-center justify-between p-2.5 border rounded-lg shadow-sm text-sm cursor-pointer transition
-                        ${isSelected ? 'bg-red-50 border-red-400 ring-1 ring-red-200' : 'bg-white border-slate-200 hover:border-red-300'}`;
+    pokemonContainer.innerHTML = '';
 
-                    const badge = poke.isLegendary
-                        ? `<span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded">ตำนาน</span>`
-                        : `<span class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded">Gen ${poke.gen}</span>`;
+    if (filteredList.length === 0) {
+      pokemonContainer.innerHTML = '<div class="empty-row">ไม่พบข้อมูลโปเกมอนที่ตรงตามเงื่อนไข ลองปรับตัวกรองดูใหม่</div>';
+    } else {
+      filteredList.forEach(poke => {
+        const isSelected = selectedNames.has(poke.name);
+        const pokeEl = document.createElement('div');
+        pokeEl.setAttribute('role', 'button');
+        pokeEl.setAttribute('tabindex', '0');
+        pokeEl.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        pokeEl.className = 'poke-row' + (isSelected ? ' selected' : '');
 
-                    pokeEl.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <span class="font-mono text-xs text-slate-400 font-semibold">#${String(poke.id).padStart(3, '0')}</span>
-                            <span class="text-slate-700 font-medium">${poke.name}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            ${isSelected ? '<span class="text-red-500 text-xs">✓</span>' : ''}
-                            ${badge}
-                        </div>
-                    `;
+        const badge = poke.isLegendary
+          ? '<span class="tag legend">LEGEND</span>'
+          : '<span class="tag normal">GEN ' + poke.gen + '</span>';
 
-                    const toggleSelection = () => {
-                        if (selectedNames.has(poke.name)) {
-                            selectedNames.delete(poke.name);
-                        } else {
-                            selectedNames.add(poke.name);
-                        }
-                        updateList();
-                    };
+        pokeEl.innerHTML =
+          '<div class="poke-left">' +
+            '<span class="poke-id">#' + String(poke.id).padStart(3, '0') + '</span>' +
+            '<span class="poke-name">' + poke.name + '</span>' +
+          '</div>' +
+          '<div class="poke-right">' +
+            (isSelected ? '<span class="check">✓</span>' : '') +
+            badge +
+          '</div>';
 
-                    pokeEl.addEventListener('click', toggleSelection);
-                    pokeEl.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            toggleSelection();
-                        }
-                    });
+        const toggleSelection = () => {
+          if (selectedNames.has(poke.name)) {
+            selectedNames.delete(poke.name);
+          } else {
+            selectedNames.add(poke.name);
+          }
+          updateList();
+        };
 
-                    pokemonContainer.appendChild(pokeEl);
-                });
-            }
-
-            filteredPokemonNames = selectedNames.size > 0 ? [...selectedNames] : filteredList.map(p => p.name);
-            updateTextBox();
-        }
-
-        function updateTextBox() {
-            const selectedSeparator = Array.from(separatorRadios).find(r => r.checked).value;
-            if (filteredPokemonNames.length === 0) {
-                copyTextArea.value = '';
-                copyBtn.disabled = true;
-                btnText.textContent = 'คัดลอกรายชื่อทั้งหมด';
-            } else {
-                copyBtn.disabled = false;
-                btnText.textContent = `คัดลอก (${filteredPokemonNames.length} ชื่อ)`;
-                if (selectedSeparator === 'comma') {
-                    copyTextArea.value = filteredPokemonNames.join(', ');
-                } else if (selectedSeparator === 'pipe') {
-                    copyTextArea.value = filteredPokemonNames.join('|');
-                } else if (selectedSeparator === 'tab') {
-                    copyTextArea.value = filteredPokemonNames.join('\t');
-                } else if (selectedSeparator === 'quotes') {
-                    copyTextArea.value = filteredPokemonNames.map(n => `"${n}"`).join(', ');
-                } else {
-                    copyTextArea.value = filteredPokemonNames.join('\n');
-                }
-            }
-        }
-
-        genFilter.addEventListener('change', updateList);
-        idStart.addEventListener('input', updateList);
-        idEnd.addEventListener('input', updateList);
-        typeFilter.addEventListener('change', updateList);
-        searchInput.addEventListener('input', updateList);
-        separatorRadios.forEach(radio => radio.addEventListener('change', updateTextBox));
-
-        resetBtn.addEventListener('click', () => {
-            genFilter.value = 'all';
-            idStart.value = '';
-            idEnd.value = '';
-            typeFilter.value = 'all';
-            searchInput.value = '';
-            selectedNames.clear();
-            updateList();
+        pokeEl.addEventListener('click', toggleSelection);
+        pokeEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSelection();
+          }
         });
 
-        copyBtn.addEventListener('click', () => {
-            if (copyTextArea.value.trim() === '') return;
+        pokemonContainer.appendChild(pokeEl);
+      });
+    }
 
-            const showSuccess = () => {
-                toastMsg.classList.remove('hidden');
-                const originalText = btnText.textContent;
-                btnText.textContent = 'คัดลอกสำเร็จแล้ว!';
-                copyBtn.classList.replace('bg-red-600', 'bg-emerald-600');
+    filteredPokemonNames = selectedNames.size > 0 ? [...selectedNames] : filteredList.map(p => p.name);
+    updateTextBox();
+  }
 
-                setTimeout(() => {
-                    toastMsg.classList.add('hidden');
-                    btnText.textContent = originalText;
-                    copyBtn.classList.replace('bg-emerald-600', 'bg-red-600');
-                }, 2000);
-            };
+  function updateTextBox() {
+    if (filteredPokemonNames.length === 0) {
+      copyTextArea.value = '';
+      copyBtn.disabled = true;
+      btnText.textContent = 'คัดลอกรายชื่อทั้งหมด';
+    } else {
+      copyBtn.disabled = false;
+      btnText.textContent = 'คัดลอก (' + filteredPokemonNames.length + ' ชื่อ)';
+      if (currentSeparator === 'comma') {
+        copyTextArea.value = filteredPokemonNames.join(', ');
+      } else if (currentSeparator === 'pipe') {
+        copyTextArea.value = filteredPokemonNames.join('|');
+      } else if (currentSeparator === 'tab') {
+        copyTextArea.value = filteredPokemonNames.join('\t');
+      } else if (currentSeparator === 'quotes') {
+        copyTextArea.value = filteredPokemonNames.map(n => '"' + n + '"').join(', ');
+      } else {
+        copyTextArea.value = filteredPokemonNames.join('\n');
+      }
+    }
+  }
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(copyTextArea.value).then(showSuccess).catch(err => {
-                    alert('เกิดข้อผิดพลาดในการคัดลอก: ' + err);
-                });
-            } else {
-                try {
-                    copyTextArea.removeAttribute('readonly');
-                    copyTextArea.select();
-                    document.execCommand('copy');
-                    copyTextArea.setAttribute('readonly', true);
-                    showSuccess();
-                } catch (err) {
-                    alert('เบราว์เซอร์นี้ไม่รองรับการคัดลอกอัตโนมัติ กรุณาคัดลอกข้อความด้วยตนเอง');
-                }
-            }
-        });
+  genFilter.addEventListener('change', updateList);
+  idStart.addEventListener('input', updateList);
+  idEnd.addEventListener('input', updateList);
+  typeFilter.addEventListener('change', updateList);
+  searchInput.addEventListener('input', updateList);
 
-        updateList();
-    </script>
+  sepButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sepButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSeparator = btn.dataset.sep;
+      updateTextBox();
+    });
+  });
+
+  resetBtn.addEventListener('click', () => {
+    genFilter.value = 'all';
+    idStart.value = '';
+    idEnd.value = '';
+    typeFilter.value = 'all';
+    searchInput.value = '';
+    selectedNames.clear();
+    updateList();
+  });
+
+  copyBtn.addEventListener('click', () => {
+    if (copyTextArea.value.trim() === '') return;
+
+    const showSuccess = () => {
+      toastMsg.classList.add('show');
+      const originalText = btnText.textContent;
+      btnText.textContent = 'คัดลอกสำเร็จแล้ว';
+      copyBtn.classList.add('done');
+
+      setTimeout(() => {
+        toastMsg.classList.remove('show');
+        btnText.textContent = originalText;
+        copyBtn.classList.remove('done');
+      }, 2000);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(copyTextArea.value).then(showSuccess).catch(err => {
+        alert('เกิดข้อผิดพลาดในการคัดลอก: ' + err);
+      });
+    } else {
+      try {
+        copyTextArea.removeAttribute('readonly');
+        copyTextArea.select();
+        document.execCommand('copy');
+        copyTextArea.setAttribute('readonly', true);
+        showSuccess();
+      } catch (err) {
+        alert('เบราว์เซอร์นี้ไม่รองรับการคัดลอกอัตโนมัติ กรุณาคัดลอกข้อความด้วยตนเอง');
+      }
+    }
+  });
+
+  updateList();
+</script>
 </body>
 </html>
